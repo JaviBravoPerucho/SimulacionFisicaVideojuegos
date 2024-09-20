@@ -54,6 +54,12 @@ void initPhysics(bool interactive)
 	sceneDesc.filterShader = contactReportFilterShader;
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(sceneDesc);
+
+	PxSphereGeometry geometry = PxSphereGeometry(5);
+	PxShape* shape = CreateShape(geometry);
+	PxTransform* transform = new PxTransform(PxVec3(0, 0, 0));
+	RenderItem* sphere = new RenderItem(shape, transform, Vector4(1,1,1,1));
+	RegisterRenderItem(sphere);
 	}
 
 
@@ -66,6 +72,7 @@ void stepPhysics(bool interactive, double t)
 
 	gScene->simulate(t);
 	gScene->fetchResults(true);
+
 }
 
 // Function to clean data
