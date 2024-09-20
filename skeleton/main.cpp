@@ -7,6 +7,7 @@
 #include "core.hpp"
 #include "RenderUtils.hpp"
 #include "callbacks.hpp"
+#include "../common/PhysX-3.4/PxShared/include/foundation/Vector3D.h"
 
 #include <iostream>
 
@@ -55,11 +56,23 @@ void initPhysics(bool interactive)
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(sceneDesc);
 
-	PxSphereGeometry geometry = PxSphereGeometry(5);
+	PxSphereGeometry geometry = PxSphereGeometry(1);
 	PxShape* shape = CreateShape(geometry);
-	PxTransform* transform = new PxTransform(PxVec3(0, 0, 0));
+	PxTransform* transform = new PxTransform(Vector3D<float>(0, 0, 0));
 	RenderItem* sphere = new RenderItem(shape, transform, Vector4(1,1,1,1));
 	RegisterRenderItem(sphere);
+
+	PxTransform* transformGreen = new PxTransform(Vector3D<float>(0, 5, 0));
+	RenderItem* sphereGreen = new RenderItem(shape, transform, Vector4(0, 1, 0, 1));
+	RegisterRenderItem(sphereGreen);
+
+	PxTransform* transformBlue = new PxTransform(Vector3D<float>(-5, 0, 0));
+	RenderItem* sphereBlue = new RenderItem(shape, transform, Vector4(0, 0, 1, 1));
+	RegisterRenderItem(sphereBlue);
+
+	PxTransform* transformRed = new PxTransform(Vector3D<float>(-5, 0, 0));
+	RenderItem* sphereRed = new RenderItem(shape, transform, Vector4(1, 0, 0, 1));
+	RegisterRenderItem(sphereRed);
 	}
 
 
