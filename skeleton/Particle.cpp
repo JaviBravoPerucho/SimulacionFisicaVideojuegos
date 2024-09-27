@@ -19,7 +19,7 @@ Particle::~Particle()
 
 void Particle::integrate(double t) {
 	pose = pose + vel * t;
-	vel = vel * damping_ratio +a * t;
+	vel = vel * pow(damping_ratio, t) +a * t;
 
 	transform->p = pose;
 
