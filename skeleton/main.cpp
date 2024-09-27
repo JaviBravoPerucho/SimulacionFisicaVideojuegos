@@ -7,7 +7,8 @@
 #include "core.hpp"
 #include "RenderUtils.hpp"
 #include "callbacks.hpp"
-#include "../common/PhysX-3.4/PxShared/include/foundation/Vector3D.h"
+#include "Vector3D.h"
+#include "Particle.h"
 
 #include <iostream>
 
@@ -31,6 +32,7 @@ PxDefaultCpuDispatcher*	gDispatcher = NULL;
 PxScene*				gScene      = NULL;
 ContactReportCallback gContactReportCallback;
 
+Particle*				p			= NULL;
 
 // Initialize physics engine
 void initPhysics(bool interactive)
@@ -56,23 +58,26 @@ void initPhysics(bool interactive)
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(sceneDesc);
 
-	PxSphereGeometry geometry = PxSphereGeometry(1);
+	/*PxSphereGeometry geometry = PxSphereGeometry(1);
+
 	PxShape* shape = CreateShape(geometry);
-	PxTransform* transform = new PxTransform(Vector3D<float>(0, 0, 0));
+	PxTransform* transform = new PxTransform(PxVec3(0, 0, 0));
 	RenderItem* sphere = new RenderItem(shape, transform, Vector4(1,1,1,1));
 	RegisterRenderItem(sphere);
 
-	PxTransform* transformGreen = new PxTransform(Vector3D<float>(0, 5, 0));
-	RenderItem* sphereGreen = new RenderItem(shape, transform, Vector4(0, 1, 0, 1));
+
+	PxTransform* transformGreen = new PxTransform(PxVec3(0, 5, 0));
+	RenderItem* sphereGreen = new RenderItem(shape, transformGreen, Vector4(0, 1, 0, 1));
 	RegisterRenderItem(sphereGreen);
 
-	PxTransform* transformBlue = new PxTransform(Vector3D<float>(-5, 0, 0));
-	RenderItem* sphereBlue = new RenderItem(shape, transform, Vector4(0, 0, 1, 1));
+	PxTransform* transformBlue = new PxTransform(PxVec3(-5, -5, 0));
+	RenderItem* sphereBlue = new RenderItem(shape, transformBlue, Vector4(0, 0, 1, 1));
 	RegisterRenderItem(sphereBlue);
 
-	PxTransform* transformRed = new PxTransform(Vector3D<float>(-5, 0, 0));
-	RenderItem* sphereRed = new RenderItem(shape, transform, Vector4(1, 0, 0, 1));
-	RegisterRenderItem(sphereRed);
+	PxTransform* transformRed = new PxTransform(PxVec3(5, 0, 0));
+	RenderItem* sphereRed = new RenderItem(shape, transformRed, Vector4(1, 0, 0, 1));
+	RegisterRenderItem(sphereRed);*/
+	p = new Particle(Vector3(0, 0, 0), Vector3(5, 0, 0));
 	}
 
 
@@ -85,6 +90,8 @@ void stepPhysics(bool interactive, double t)
 
 	gScene->simulate(t);
 	gScene->fetchResults(true);
+
+	p->integrate(t);
 
 }
 
