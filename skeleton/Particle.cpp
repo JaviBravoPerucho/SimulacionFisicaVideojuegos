@@ -1,14 +1,14 @@
 #include "Particle.h"
 
-Particle::Particle(Vector3 Pos, Vector3 Vel):vel(Vel),pose(Pos)
+Particle::Particle(Vector3 Pos, Vector3 Vel, Vector3 ac):vel(Vel),pose(Pos), masa(0), a(ac)
 {
 	PxSphereGeometry geometry(1);
 	PxShape* shape = CreateShape(geometry);
 	transform = new PxTransform(pose);
 	renderItem = new RenderItem(shape, transform, Vector4(1, 1, 1, 1));
 	RegisterRenderItem(renderItem);
-	a = Vector3(10,0,0);
 	damping_ratio = 0.99;
+	vs = vel.magnitude();
 }
 
 Particle::~Particle()

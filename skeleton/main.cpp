@@ -8,7 +8,7 @@
 #include "RenderUtils.hpp"
 #include "callbacks.hpp"
 #include "Vector3D.h"
-#include "Particle.h"
+#include "Proyectil.h"
 
 #include <iostream>
 
@@ -32,7 +32,12 @@ PxDefaultCpuDispatcher*	gDispatcher = NULL;
 PxScene*				gScene      = NULL;
 ContactReportCallback gContactReportCallback;
 
-Particle*				p			= NULL;
+std::vector <Proyectil*>			bullets;
+
+void shoot(const PxTransform &camera) {
+	bullets.push_back(new Proyectil(GetCamera()->getDir(), camera.p, 500, 6));
+}
+
 
 // Initialize physics engine
 void initPhysics(bool interactive)
@@ -77,7 +82,6 @@ void initPhysics(bool interactive)
 	PxTransform* transformRed = new PxTransform(PxVec3(5, 0, 0));
 	RenderItem* sphereRed = new RenderItem(shape, transformRed, Vector4(1, 0, 0, 1));
 	RegisterRenderItem(sphereRed);*/
-	p = new Particle(Vector3(0, 0, 0), Vector3(5, 0, 0));
 	}
 
 
@@ -91,7 +95,8 @@ void stepPhysics(bool interactive, double t)
 	gScene->simulate(t);
 	gScene->fetchResults(true);
 
-	p->integrate(t);
+	for(auto p : bullets)
+		p->integrate(t);
 
 }
 
@@ -122,8 +127,9 @@ void keyPress(unsigned char key, const PxTransform& camera)
 	{
 	//case 'B': break;
 	//case ' ':	break;
-	case ' ':
+	case 'B':
 	{
+		shoot(camera);
 		break;
 	}
 	default:
