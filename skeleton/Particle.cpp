@@ -1,6 +1,6 @@
 #include "Particle.h"
 
-Particle::Particle(Vector3 Pos, Vector3 Vel, Vector3 ac):vel(Vel),pose(Pos), masa(0), a(ac)
+Particle::Particle(Vector3 Pos, Vector3 Vel, Vector3 ac, float tiempoDeVida):vel(Vel),pose(Pos), masa(0), a(ac), tiempo(tiempoDeVida)
 {
 	PxSphereGeometry geometry(1);
 	PxShape* shape = CreateShape(geometry);
@@ -22,5 +22,10 @@ void Particle::integrate(double t) {
 	vel = vel * pow(damping_ratio, t) +a * t;
 
 	transform->p = pose;
+	tiempo -= t;
+}
 
+bool Particle::death(float t)
+{
+	return tiempo <= 0;
 }

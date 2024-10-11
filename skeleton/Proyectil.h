@@ -10,7 +10,7 @@ public:
 		masaSim(); gravedadSim();
 		Vector3 direction = pos;
 		direction.normalize();
-		p = new Particle(ini, direction * vs, Vector3(0, -gs, 0));
+		p = new Particle(ini, direction * vs, Vector3(0, -gs, 0), 5);
 	}
 
 	void masaSim() {
@@ -18,7 +18,7 @@ public:
 	}
 
 	void gravedadSim() {
-		gs = vs*vs * (GRAV / vr);
+		gs = vs*vs * (GRAV / (vr*vr));
 	}
 
 	void integrate(double t) {
