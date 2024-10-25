@@ -15,6 +15,10 @@ public:
 
 	float t()const { return tiempo; }
 
+	PxTransform trans()const { return transform; }
+
+	bool estaFuera(double limite)const { return transform.p.x >= limite || transform.p.y >= limite || transform.p.z >= limite; }
+
 private:
 	Vector3 vel;
 	Vector3 pose;

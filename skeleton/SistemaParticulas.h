@@ -1,24 +1,14 @@
-#include "Particle.h"
-#include <random>
-#include <list>
+#include "EmisorDistribucionNormal.h"
+#include "EmisorDistribucionUniforme.h"
 
 
 class SistemaParticulas
 {
 public:
-	SistemaParticulas(Vector3 pos, double t, double dt) :pos(pos), tiempoDeVida(t), desviacion(dt), eliminate(0), tiempoTotal(0), fuente(0) {};
+	SistemaParticulas();
 
-	float distribucionNormal(float media, float dt);
-	float distribucionUniforme(float a, float b);
-
-	void createParticle();
-
-	void integrate(double t);
-
+	void update(double t);
 private:
-	std::list<Particle*> fuente;
-	std::list<Particle*> eliminate;
-	double tiempoDeVida, desviacion, tiempoTotal;
-	Vector3 pos;
+	std::vector<Emisor*> sistemaDeParticulas;
 };
 

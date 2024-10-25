@@ -65,7 +65,7 @@ void initPhysics(bool interactive)
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(sceneDesc);
 
-	sp = new SistemaParticulas(Vector3(0), 1, 2);
+	sp = new SistemaParticulas();
 }
 
 
@@ -82,7 +82,7 @@ void stepPhysics(bool interactive, double t)
 	//for(auto p : bullets)
 	//	p->integrate(t);
 
-	sp->integrate(t);
+	sp->update(t);
 }
 
 // Function to clean data

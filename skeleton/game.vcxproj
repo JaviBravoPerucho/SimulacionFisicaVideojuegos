@@ -254,6 +254,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="callbacks.cpp" />
+    <ClCompile Include="Emisor.cpp" />
+    <ClCompile Include="EmisorDistribucionNormal.cpp" />
+    <ClCompile Include="EmisorDistribucionUniforme.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="Proyectil.cpp" />
@@ -266,6 +269,9 @@
   <ItemGroup>
     <ClInclude Include="callbacks.hpp" />
     <ClInclude Include="core.hpp" />
+    <ClInclude Include="Emisor.h" />
+    <ClInclude Include="EmisorDistribucionNormal.h" />
+    <ClInclude Include="EmisorDistribucionUniforme.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="Proyectil.h" />
     <ClInclude Include="RenderUtils.hpp" />
