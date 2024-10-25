@@ -13,14 +13,14 @@ public:
 
 	void integrate(double t);
 
-	bool death(float t);
+	float t()const { return tiempo; }
 
 private:
 	Vector3 vel;
 	Vector3 pose;
 	Vector3 a;
 	float damping_ratio, tiempo;
-	PxTransform* transform;
+	PxTransform transform;
 	RenderItem* renderItem;
 	float masa;
 	int vs;

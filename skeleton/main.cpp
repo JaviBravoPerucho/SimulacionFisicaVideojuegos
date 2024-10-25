@@ -79,8 +79,8 @@ void stepPhysics(bool interactive, double t)
 	gScene->simulate(t);
 	gScene->fetchResults(true);
 
-	for(auto p : bullets)
-		p->integrate(t);
+	//for(auto p : bullets)
+	//	p->integrate(t);
 
 	sp->integrate(t);
 }
