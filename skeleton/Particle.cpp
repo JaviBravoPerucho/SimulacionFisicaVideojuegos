@@ -1,6 +1,6 @@
 #include "Particle.h"
 
-Particle::Particle(Vector3 Pos, Vector3 Vel, Vector3 ac, float tiempoDeVida):vel(Vel),pose(Pos), masa(0), a(ac), tiempo(tiempoDeVida)
+Particle::Particle(Vector3 Pos, Vector3 Vel, Vector3 ac, float tiempoDeVida, float m):vel(Vel),pose(Pos), masa(m), a(ac), tiempo(tiempoDeVida), fuerzaTotal(0)
 {
 
 	transform = physx::PxTransform(pose);
@@ -17,8 +17,10 @@ Particle::~Particle()
 }
 
 void Particle::integrate(double t) {
-	pose = pose + vel * t;
-	vel = vel * pow(damping_ratio, t) +a * t;
+	a = fuerzaTotal/masa;
+	pose += vel * t;
+	vel  += a * t;
+	vel *= pow(damping_ratio, t);
 
 	transform.p = pose;
 }

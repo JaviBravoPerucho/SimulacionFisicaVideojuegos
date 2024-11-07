@@ -10,6 +10,8 @@
 #include "Vector3D.h"
 #include "Proyectil.h"
 #include "SistemaParticulas.h"
+#include "SistemaFuerzas.h"
+#include "GravitationalForce.h"
 
 #include <iostream>
 
@@ -35,6 +37,7 @@ ContactReportCallback gContactReportCallback;
 
 std::vector <Proyectil*>	bullets;
 SistemaParticulas*		sp				= NULL;
+SistemaFuerzas*			sf				= NULL;
 
 void shoot(const PxTransform &camera) {
 	bullets.push_back(new Proyectil(GetCamera()->getDir(), camera.p, 500, 6));
@@ -66,6 +69,9 @@ void initPhysics(bool interactive)
 	gScene = gPhysics->createScene(sceneDesc);
 
 	sp = new SistemaParticulas();
+	sf = new SistemaFuerzas(sp);
+
+	sf->addGenerator(new GravitationalForce(Vector3(0, 0, 0), Vector3(10, 10, 10)));
 }
 
 
@@ -83,6 +89,7 @@ void stepPhysics(bool interactive, double t)
 	//	p->integrate(t);
 
 	sp->update(t);
+	sf->update(t);
 }
 
 // Function to clean data
@@ -129,8 +136,7 @@ void onCollision(physx::PxActor* actor1, physx::PxActor* actor2)
 }
 
 
-int main(int, const char*const*)
-{
+int main(int, const char*const*){
 #ifndef OFFLINE_EXECUTION 
 	extern void renderLoop();
 	renderLoop();

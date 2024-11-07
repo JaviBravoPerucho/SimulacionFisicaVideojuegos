@@ -1,8 +1,5 @@
 #include "Emisor.h"
 
-
-
-
 void Emisor::integrate(double t)
 {
 	tiempoTotal += t;
