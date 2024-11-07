@@ -257,6 +257,7 @@
     <ClCompile Include="Emisor.cpp" />
     <ClCompile Include="EmisorDistribucionNormal.cpp" />
     <ClCompile Include="EmisorDistribucionUniforme.cpp" />
+    <ClCompile Include="ExplosionForceGenerator.cpp" />
     <ClCompile Include="GravitationalForce.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Particle.cpp" />
@@ -275,6 +276,7 @@
     <ClInclude Include="Emisor.h" />
     <ClInclude Include="EmisorDistribucionNormal.h" />
     <ClInclude Include="EmisorDistribucionUniforme.h" />
+    <ClInclude Include="ExplosionForceGenerator.h" />
     <ClInclude Include="ForceGenerator.h" />
     <ClInclude Include="GravitationalForce.h" />
     <ClInclude Include="Particle.h" />

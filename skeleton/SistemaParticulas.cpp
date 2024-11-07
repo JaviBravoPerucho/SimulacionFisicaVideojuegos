@@ -3,7 +3,7 @@
 SistemaParticulas::SistemaParticulas()
 {
 	//emisoresDeParticulas.push_back(new EmisorDistribucionUniforme(Vector3(0), 5, 10.0,100));
-	emisoresDeParticulas.push_back(new EmisorDistribucionNormal(Vector3(0), 5, 20, 100));
+	emisoresDeParticulas.push_back(new EmisorDistribucionNormal(Vector3(0), 5, 5, 100));
 	//emisoresDeParticulas.push_back(new EmisorDistribucionNormal(Vector3(0), 5, 20.0));
 
 }
