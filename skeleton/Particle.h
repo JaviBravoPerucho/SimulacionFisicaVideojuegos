@@ -14,12 +14,11 @@ public:
 	void integrate(double t);
 
 	float t()const { return tiempo; }
-
 	PxTransform trans()const { return transform; }
+	Vector3 getPos()const { return pose; }
+	Vector3 getVel()const { return vel; }
 
 	bool estaFuera(double limite)const { return transform.p.x >= limite || transform.p.y >= limite || transform.p.z >= limite; }
-
-	Vector3 getPos()const { return pose; }
 
 	void addForce(Vector3 f) {	fuerzaTotal = f;};
 private:

@@ -266,6 +266,8 @@
     <ClCompile Include="Render\Render.cpp" />
     <ClCompile Include="SistemaFuerzas.cpp" />
     <ClCompile Include="SistemaParticulas.cpp" />
+    <ClCompile Include="TorbellinoForceGenerator.cpp" />
+    <ClCompile Include="VientoForceGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="callbacks.hpp" />
@@ -282,7 +284,9 @@
     <ClInclude Include="Render\Render.h" />
     <ClInclude Include="SistemaFuerzas.h" />
     <ClInclude Include="SistemaParticulas.h" />
+    <ClInclude Include="TorbellinoForceGenerator.h" />
     <ClInclude Include="Vector3D.h" />
+    <ClInclude Include="VientoForceGenerator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

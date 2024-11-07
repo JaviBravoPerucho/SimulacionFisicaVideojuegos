@@ -18,6 +18,8 @@
     <ClCompile Include="GravitationalForce.cpp" />
     <ClCompile Include="SistemaFuerzas.cpp" />
     <ClCompile Include="SistemaParticulas.cpp" />
+    <ClCompile Include="VientoForceGenerator.cpp" />
+    <ClCompile Include="TorbellinoForceGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -39,6 +41,8 @@
     <ClInclude Include="GravitationalForce.h" />
     <ClInclude Include="SistemaFuerzas.h" />
     <ClInclude Include="SistemaParticulas.h" />
+    <ClInclude Include="VientoForceGenerator.h" />
+    <ClInclude Include="TorbellinoForceGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">

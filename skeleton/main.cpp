@@ -12,6 +12,8 @@
 #include "SistemaParticulas.h"
 #include "SistemaFuerzas.h"
 #include "GravitationalForce.h"
+#include "VientoForceGenerator.h"
+#include "TorbellinoForceGenerator.h"
 
 #include <iostream>
 
@@ -71,7 +73,9 @@ void initPhysics(bool interactive)
 	sp = new SistemaParticulas();
 	sf = new SistemaFuerzas(sp);
 
-	sf->addGenerator(new GravitationalForce(Vector3(0, 0, 0), Vector3(10, 10, 10)));
+	//sf->addGenerator(new GravitaitonalForce(Vector3(0, 0, 0), Vector3(10, 10, 10)));
+	//sf->addGenerator(new VientoForceGenerator(Vector3(0, 0, 0), Vector3(10, 10, 10), Vector3(100,100,100)));
+	sf->addGenerator(new TorbellinoForceGenerator(Vector3(0, 0, 0), Vector3(10, 10, 10)));
 }
 
 
