@@ -8,6 +8,7 @@ void SistemaFuerzas::update(double t)
 		v = Vector3(0, 0, 0);
 		for (auto g : generadores) {
 			v += g->setForce(p);
+			g->update(t);
 		}
 		std::cout << v.x << " " << v.y << " " << v.z << endl;
 		p->addForce(v);

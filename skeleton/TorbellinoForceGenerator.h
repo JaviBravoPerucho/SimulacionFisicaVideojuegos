@@ -17,6 +17,7 @@ public:
 	}
 
 	Vector3 setForce(Particle* p)override { return fuerzaTorbellino(p); }
+	void update(float t) {};
 
 private:
 	Vector3 viento;

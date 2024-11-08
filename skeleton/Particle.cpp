@@ -10,6 +10,15 @@ Particle::Particle(Vector3 Pos, Vector3 Vel, Vector3 ac, float tiempoDeVida, flo
 	vs = vel.magnitude();
 }
 
+Particle::Particle(model_t p) : vel(p.vel), pose(p.pos), masa(p.masa), a(p.ac), tiempo(p.tiempo),fuerzaTotal(0)
+{
+	transform = physx::PxTransform(pose);
+	renderItem = new RenderItem(CreateShape(PxSphereGeometry(1)), &transform, Vector4(1, 1, 1, 1));
+
+	damping_ratio = 0.99;
+	vs = vel.magnitude();
+}
+
 Particle::~Particle()
 {
 	renderItem->release();

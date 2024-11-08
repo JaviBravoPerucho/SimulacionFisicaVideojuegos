@@ -13,6 +13,7 @@ public:
 	ForceGenerator(Vector3 p, Vector3 v) : initPos(p), volumen(v) {};
 
 	virtual Vector3 setForce(Particle* p) = 0;
+	virtual void update(float t) = 0;
 
 protected:
 	Vector3 initPos, volumen;
