@@ -13,10 +13,14 @@ public:
 		generadores.push_back(g);
 	}
 
+	void removeGenerator(ForceGenerator* g) {
+		generadores.remove(g);
+	}
+
 	void update(double t);
 
 private:
-	vector<ForceGenerator*> generadores;
+	list<ForceGenerator*> generadores;
 	SistemaParticulas* sisParticulas;
 	list<Particle*> particles;
 

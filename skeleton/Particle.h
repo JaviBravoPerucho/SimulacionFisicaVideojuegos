@@ -36,6 +36,7 @@ public:
 	void addForce(Vector3 f) {	fuerzaTotal = f;};
 
 	void setVel(Vector3 v) { vel = v; }
+	void setPos(Vector3 p) { transform = PxTransform(p); }
 private:
 	Vector3 vel;
 	Vector3 pose;

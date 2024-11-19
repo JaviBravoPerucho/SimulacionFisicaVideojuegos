@@ -41,6 +41,7 @@ ContactReportCallback gContactReportCallback;
 std::vector <Proyectil*>	bullets;
 SistemaParticulas*		sp				= NULL;
 SistemaFuerzas*			sf				= NULL;
+ExplosionForceGenerator* efg			 = NULL;
 
 void shoot(const PxTransform &camera) {
 	bullets.push_back(new Proyectil(GetCamera()->getDir(), camera.p, 500, 6));
@@ -76,8 +77,9 @@ void initPhysics(bool interactive)
 
 	//sf->addGenerator(new GravitaitonalForce(Vector3(0, 0, 0), Vector3(10, 10, 10)));
 	//sf->addGenerator(new VientoForceGenerator(Vector3(0, 0, 0), Vector3(10, 10, 10), Vector3(100,100,100)));
-	sf->addGenerator(new TorbellinoForceGenerator(Vector3(0, 0, 0), Vector3(10, 10, 10)));
-	//sf->addGenerator(new ExplosionForceGenerator(Vector3(0, 0, 0), Vector3(10, 10, 10), 100000, 50));
+	//sf->addGenerator(new TorbellinoForceGenerator(Vector3(0, 0, 0), Vector3(10, 10, 10)));
+	efg = new ExplosionForceGenerator(Vector3(0, 0, 0), Vector3(10, 10, 10), 100000, 500);
+	sf->addGenerator(efg);
 }
 
 
@@ -130,6 +132,9 @@ void keyPress(unsigned char key, const PxTransform& camera)
 		shoot(camera);
 		break;
 	}
+	case 'E':
+		efg->setExplode();
+		break;
 	default:
 		break;
 	}

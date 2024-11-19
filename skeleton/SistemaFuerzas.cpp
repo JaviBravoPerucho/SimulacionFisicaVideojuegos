@@ -10,7 +10,7 @@ void SistemaFuerzas::update(double t)
 			v += g->setForce(p);
 			g->update(t);
 		}
-		std::cout << v.x << " " << v.y << " " << v.z << endl;
+
 		p->addForce(v);
 	}
 }

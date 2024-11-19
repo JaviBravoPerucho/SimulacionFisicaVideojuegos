@@ -2,8 +2,8 @@
 
 Vector3 ExplosionForceGenerator::setForce(Particle* p)
 {
-	if (time <= 0) {
-		time = timeInicial;
+	if (explode) {
+		//time = timeInicial;
 		return fuerzaExplosion(p);
 	}
 	else return Vector3(0);

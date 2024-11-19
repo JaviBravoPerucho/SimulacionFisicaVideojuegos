@@ -7,21 +7,22 @@ const float k = 10000;
 class ExplosionForceGenerator : public ForceGenerator
 {
 public:
-	ExplosionForceGenerator(Vector3 p, Vector3 v, float R, float timeConstant) :ForceGenerator(p, v), R(R), time(20), T(timeConstant)
+	ExplosionForceGenerator(Vector3 p, Vector3 v, float R, float timeConstant) :ForceGenerator(p, v), R(R), time(500), T(timeConstant), explode(false)
 	{
-		float xc = initPos.x + R;
-		float yc = initPos.y + R;
-		float zc = initPos.z + R;
+		float xc = initPos.x;
+		float yc = initPos.y;
+		float zc = initPos.z;
 		r = sqrt(pow(p.x - xc, 2) + pow(p.y - yc, 2) + pow(p.z - zc, 2));
 		timeInicial = time;
 	};
 
 	Vector3 fuerzaExplosion(Particle* p) {
-		float difX = p->getPos().x - p->getPos().x + R;
-		float difY = p->getPos().y - p->getPos().y + R;
-		float difZ = p->getPos().z - p->getPos().z + R;
-		float e = pow(exp(1), -(time / T));
-		r = sqrt(pow(difX, 2) + pow(difY, 2) + pow(difZ, 2));
+		float difX = p->getPos().x - initPos.x;
+		float difY = p->getPos().y - initPos.y;
+		float difZ = p->getPos().z - initPos.z;
+		float e = exp(-(0/T));
+		Vector3 aux = Vector3(difX, difY, difZ);
+		r = aux.magnitude();
 		Vector3 Fe = Vector3((k / (r * r)) * difX * e, (k / (r * r)) * difY * e, (k / (r * r)) * difZ * e);
 
 		if (r >= R)Fe = Vector3(0);
@@ -33,9 +34,12 @@ public:
 
 	void update(float t);
 
+	void setExplode() { explode = !explode; }
+
 private:
 	Vector3 viento;
 	float time,T, r, R, timeInicial;
+	bool explode;
 
 };
 
