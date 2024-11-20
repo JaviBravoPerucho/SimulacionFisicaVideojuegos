@@ -37,6 +37,7 @@ public:
 
 	void setVel(Vector3 v) { vel = v; }
 	void setPos(Vector3 p) { transform = PxTransform(p); }
+	void setMass(float m) { masa = m; }
 private:
 	Vector3 vel;
 	Vector3 pose;

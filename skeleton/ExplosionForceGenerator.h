@@ -9,19 +9,19 @@ class ExplosionForceGenerator : public ForceGenerator
 public:
 	ExplosionForceGenerator(Vector3 p, Vector3 v, float R, float timeConstant) :ForceGenerator(p, v), R(R), time(500), T(timeConstant), explode(false)
 	{
-		float xc = initPos.x;
-		float yc = initPos.y;
-		float zc = initPos.z;
+		const float xc = initPos.x;
+		const float yc = initPos.y;
+		const float zc = initPos.z;
 		r = sqrt(pow(p.x - xc, 2) + pow(p.y - yc, 2) + pow(p.z - zc, 2));
 		timeInicial = time;
 	};
 
 	Vector3 fuerzaExplosion(Particle* p) {
-		float difX = p->getPos().x - initPos.x;
-		float difY = p->getPos().y - initPos.y;
-		float difZ = p->getPos().z - initPos.z;
-		float e = exp(-(0/T));
-		Vector3 aux = Vector3(difX, difY, difZ);
+		const float difX = p->getPos().x - initPos.x;
+		const float difY = p->getPos().y - initPos.y;
+		const float difZ = p->getPos().z - initPos.z;
+		const float e = exp(-(0/T));
+		const Vector3 aux = Vector3(difX, difY, difZ);
 		r = aux.magnitude();
 		Vector3 Fe = Vector3((k / (r * r)) * difX * e, (k / (r * r)) * difY * e, (k / (r * r)) * difZ * e);
 

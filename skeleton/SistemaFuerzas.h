@@ -1,5 +1,5 @@
 #pragma once
-#include "ForceGenerator.h"
+#include "SpringForceGenerator.h"
 #include "SistemaParticulas.h"
 #include <iostream>
 
@@ -18,6 +18,8 @@ public:
 	}
 
 	void update(double t);
+
+	void generateSpringDemo();
 
 private:
 	list<ForceGenerator*> generadores;
