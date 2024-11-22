@@ -1,5 +1,5 @@
 #pragma once
-#include "SpringForceGenerator.h"
+#include "AnchoredSpringFG.h"
 #include "SistemaParticulas.h"
 #include <iostream>
 
@@ -25,6 +25,7 @@ private:
 	list<ForceGenerator*> generadores;
 	SistemaParticulas* sisParticulas;
 	list<Particle*> particles;
+	list<pair<ForceGenerator*, Particle*>> force_registry;
 
 };
 

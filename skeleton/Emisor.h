@@ -15,7 +15,7 @@ public:
 
 	std::list<Particle*> getParticles() const { return fuente; }
 
-	void setModel(model_t model) { modelo_particula = {model.pos, model.vel, model.ac, model.tiempo, model.masa}; };
+	void setModel(model_t model) { modelo_particula = {model.pos, model.vel, model.ac, model.tiempo, model.masa, model.forma}; };
 	model_t getModelo() const { return modelo_particula; }
 
 

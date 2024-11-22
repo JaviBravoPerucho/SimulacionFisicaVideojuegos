@@ -10,7 +10,7 @@ public:
 		Vector3 posaux = Vector3(distribucionNormal(0, desviacion), distribucionNormal(0, desviacion), distribucionNormal(0, desviacion));
 		Vector3 ac = Vector3(0, 0, 0);
 		float tiempo = tiempoDeVida + tiempoTotal;
-		setModel({ posaux, Vector3(0), ac, tiempo, masa});
+		setModel({ posaux, Vector3(0), ac, tiempo, masa, PUNTO});
 	};
 
 	float distribucionNormal(float media, float dt);

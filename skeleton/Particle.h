@@ -5,12 +5,17 @@
 
 using namespace physx;
 
+enum Forma {
+	PUNTO, BOX
+};
+
 struct model_t {
 	Vector3 pos;
 	Vector3 vel;
 	Vector3 ac;
 	float tiempo;
 	float masa;
+	Forma forma = PUNTO;
 };
 
 

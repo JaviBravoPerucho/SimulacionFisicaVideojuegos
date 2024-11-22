@@ -13,7 +13,11 @@ Particle::Particle(Vector3 Pos, Vector3 Vel, Vector3 ac, float tiempoDeVida, flo
 Particle::Particle(model_t p) : vel(p.vel), pose(p.pos), masa(p.masa), a(p.ac), tiempo(p.tiempo),fuerzaTotal(0)
 {
 	transform = physx::PxTransform(pose);
-	renderItem = new RenderItem(CreateShape(PxSphereGeometry(1)), &transform, Vector4(1, 1, 1, 1));
+	RenderItem* aux;
+	if(p.forma == PUNTO)aux = new RenderItem(CreateShape(PxSphereGeometry(1)), &transform, Vector4(1, 1, 1, 1));
+	else if(p.forma == BOX) aux = new RenderItem(CreateShape(PxBoxGeometry(PxVec3(5, 5, 5))), &transform, Vector4(1, 1, 1, 1));
+
+	renderItem = aux;
 
 	damping_ratio = 0.99;
 	vs = vel.magnitude();
