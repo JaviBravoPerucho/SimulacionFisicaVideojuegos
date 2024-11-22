@@ -54,4 +54,6 @@ void SistemaFuerzas::generateSpringDemo() {
 	generadores.push_back(f3);
 	sisParticulas->addParticle(p3);
 	force_registry.push_back({ f3, p3 });
+
+	Particle* agua = new Particle({ -10.0, 30.0, 0.0 }, { 0.0,0.0,0.0 }, { 0.0,0.0,0.0 }, 60, 0);
 }

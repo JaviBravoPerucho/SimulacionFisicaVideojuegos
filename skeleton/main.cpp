@@ -75,12 +75,12 @@ void initPhysics(bool interactive)
 	sp = new SistemaParticulas();
 	sf = new SistemaFuerzas(sp);
 
-	//sf->addGenerator(new GravitaitonalForce(Vector3(0, 0, 0), Vector3(10, 10, 10)));
+	//sf->addGenerator(new GravitationalForce(Vector3(0, 0, 0), Vector3(10, 10, 10)));
 	//sf->addGenerator(new VientoForceGenerator(Vector3(0, 0, 0), Vector3(10, 10, 10), Vector3(100,100,100)));
 	//sf->addGenerator(new TorbellinoForceGenerator(Vector3(0, 0, 0), Vector3(10, 10, 10)));
-	//efg = new ExplosionForceGenerator(Vector3(0, 0, 0), Vector3(10, 10, 10), 100000, 500);
-	//sf->addGenerator(efg);
-	sf->generateSpringDemo();
+	efg = new ExplosionForceGenerator(Vector3(0, 0, 0), Vector3(10, 10, 10), 100000, 500);
+	sf->addGenerator(efg);
+	//sf->generateSpringDemo();
 }
 
 

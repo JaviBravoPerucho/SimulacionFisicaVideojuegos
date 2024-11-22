@@ -7,7 +7,7 @@ public:
 	GravitationalForce(Vector3 initPos, Vector3 volumen) :ForceGenerator(initPos, volumen) { gravedad = Vector3(0, -G,  0); };
 
 	Vector3 setForce(Particle* p) override;
-	void update(float t) = 0;
+	void update(float t) {};
 
 private:
 	Vector3 gravedad;

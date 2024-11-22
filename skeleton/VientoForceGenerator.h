@@ -15,7 +15,7 @@ public:
 	}
 
 	Vector3 setForce(Particle* p);
-	void update(float t) = 0;
+	void update(float t) {};
 
 private:
 
