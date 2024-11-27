@@ -14,8 +14,8 @@ Particle::Particle(model_t p) : vel(p.vel), pose(p.pos), masa(p.masa), a(p.ac), 
 {
 	transform = physx::PxTransform(pose);
 	RenderItem* aux;
-	if(p.forma == PUNTO)aux = new RenderItem(CreateShape(PxSphereGeometry(1)), &transform, Vector4(1, 1, 1, 1));
-	else if(p.forma == BOX) aux = new RenderItem(CreateShape(PxBoxGeometry(PxVec3(5, 5, 5))), &transform, Vector4(1, 1, 1, 1));
+	if(p.forma == PUNTO)aux = new RenderItem(CreateShape(PxSphereGeometry(1)), &transform, p.color);
+	else if(p.forma == BOX) aux = new RenderItem(CreateShape(PxBoxGeometry(p.dimensiones)), &transform, p.color);
 
 	renderItem = aux;
 

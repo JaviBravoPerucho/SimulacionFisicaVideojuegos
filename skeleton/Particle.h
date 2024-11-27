@@ -16,6 +16,8 @@ struct model_t {
 	float tiempo;
 	float masa;
 	Forma forma = PUNTO;
+	Vector4 color = { 1,1,1,1 };
+	PxVec3 dimensiones = { 5,5,5 };
 };
 
 

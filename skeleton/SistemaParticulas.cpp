@@ -4,7 +4,7 @@ SistemaParticulas::SistemaParticulas():tiempoTotal(0)
 {
 	//emisoresDeParticulas.push_back(new EmisorDistribucionUniforme(Vector3(0), 5, 10.0,100, 2.0f, 10));
 	//emisoresDeParticulas.push_back(new EmisorDistribucionNormal(Vector3(0), 5, 2, 100, 2.0f, 10));
-	emisoresDeParticulas.push_back(new EmisorDistribucionNormal(Vector3(0), 5, 5.0, 200.0f, 10));
+	//emisoresDeParticulas.push_back(new EmisorDistribucionNormal(Vector3(0), 5, 5.0, 200.0f, 10));
 
 }
 

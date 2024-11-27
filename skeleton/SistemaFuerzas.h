@@ -1,5 +1,7 @@
 #pragma once
 #include "AnchoredSpringFG.h"
+#include "BuoyancyForceGenerator.h"
+#include "GravitationalForce.h"
 #include "SistemaParticulas.h"
 #include <iostream>
 
@@ -20,6 +22,7 @@ public:
 	void update(double t);
 
 	void generateSpringDemo();
+	void generateBuoyancyDemo();
 
 private:
 	list<ForceGenerator*> generadores;

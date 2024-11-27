@@ -1,6 +1,6 @@
 #include "BuoyancyForceGenerator.h"
 
-BuoyancyForceGenerator::BuoyancyForceGenerator(float h, float V, float d) : ForceGenerator(Vector3(0), Vector3(10)), _height(h), _volume(V), _liquid_density(d)
+BuoyancyForceGenerator::BuoyancyForceGenerator(float h, float V, float d, Particle* p) : ForceGenerator(Vector3(0), Vector3(10)), _height(h), _volume(V), _liquid_density(d), _liquid_particle(p)
 {
 }
 

@@ -3,12 +3,11 @@
 void SistemaFuerzas::update(double t)
 {
 	particles = sisParticulas->getParticles();
-	Vector3 v;
+	Vector3 v = Vector3(0);
 
 	if (!force_registry.empty()) {
 		for (auto it : force_registry) {
-			v = Vector3(0, 0, 0);
-			v = it.first->setForce(it.second);
+			v += it.first->setForce(it.second);
 			it.first->update(t);
 			it.second->addForce(v);
 		}
@@ -55,5 +54,23 @@ void SistemaFuerzas::generateSpringDemo() {
 	sisParticulas->addParticle(p3);
 	force_registry.push_back({ f3, p3 });
 
-	Particle* agua = new Particle({ -10.0, 30.0, 0.0 }, { 0.0,0.0,0.0 }, { 0.0,0.0,0.0 }, 60, 0);
+	
+}
+
+void SistemaFuerzas::generateBuoyancyDemo()
+{
+	model_t agua = { { -10.0, 30.0, 0.0 }, { 0.0,0.0,0.0 }, { 0.0,0.0,0.0 }, 60, 500, BOX, {0, 0, 1, 0.5}, {10, 5, 10} };//Pos, vel, ac, tiempo, masa, forma,color,dimensiones
+	Particle* p = new Particle(agua);
+	sisParticulas->addParticle(p);
+
+	model_t cubo = { { -10.0, 40.0, 0.0 }, { 0.0,0.0,0.0 }, { 0.0,0.0,0.0 }, 60, 10, BOX, {1, 1, 1, 1}, {3, 3, 3} };
+	Particle* p2 = new Particle(cubo);
+	sisParticulas->addParticle(p2);
+
+	BuoyancyForceGenerator* bfg = new BuoyancyForceGenerator(3, 27, 1000, p);
+	force_registry.push_back({ bfg, p2 });
+
+	GravitationalForce* gf = new GravitationalForce({ -10, 40, 0 }, { 100,100,100 });
+	force_registry.push_back({ gf, p2 });
+
 }

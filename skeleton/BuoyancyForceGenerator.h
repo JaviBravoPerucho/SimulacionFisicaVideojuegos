@@ -5,11 +5,13 @@
 class BuoyancyForceGenerator: public ForceGenerator
 {
 public:
-	BuoyancyForceGenerator(float h, float V, float d);
+	BuoyancyForceGenerator(float h, float V, float d, Particle* p);
 
 	virtual Vector3 setForce(Particle* p);
 
-	virtual ~BuoyancyForceGenerator();
+	virtual ~BuoyancyForceGenerator() {};
+
+	void update(float t) {};
 
 protected:
 	float _height;
