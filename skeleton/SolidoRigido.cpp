@@ -7,6 +7,7 @@ SolidoRigido::SolidoRigido(PxTransform t, PxBoxGeometry geo, Vector3 linear_v, V
 	solid->setAngularVelocity(ang_v);
 	shape = CreateShape(geo);
 	solid->attachShape(*shape);
+	//solid->setMassSpaceInertiaTensor({ (2 / 5) * 30 * 30 * 30, (2 / 5) * 30 * 30 * 30, (2 / 5) * 30 * 30 * 30 });
 	PxRigidBodyExt::updateMassAndInertia(*solid, density);
 	scene->addActor(*solid);
 
