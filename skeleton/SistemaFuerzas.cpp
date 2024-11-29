@@ -59,15 +59,15 @@ void SistemaFuerzas::generateSpringDemo() {
 
 void SistemaFuerzas::generateBuoyancyDemo()
 {
-	model_t agua = { { -10.0, 30.0, 0.0 }, { 0.0,0.0,0.0 }, { 0.0,0.0,0.0 }, 60, 500, BOX, {0, 0, 1, 0.5}, {10, 5, 10} };//Pos, vel, ac, tiempo, masa, forma,color,dimensiones
+	model_t agua = { { -10.0, 30.0, 0.0 }, { 0.0,0.0,0.0 }, { 0.0,0.0,0.0 }, 60, 1000, BOX, {0, 0, 1, 0.5}, {10, 5, 10} };//Pos, vel, ac, tiempo, masa, forma,color,dimensiones
 	Particle* p = new Particle(agua);
 	sisParticulas->addParticle(p);
 
-	model_t cubo = { { -10.0, 40.0, 0.0 }, { 0.0,0.0,0.0 }, { 0.0,0.0,0.0 }, 60, 10, BOX, {1, 1, 1, 1}, {3, 3, 3} };
+	model_t cubo = { { -10.0, 40.0, 0.0 }, { 0.0,0.0,0.0 }, { 0.0,0.0,0.0 }, 60, 50, BOX, {1, 1, 1, 1}, {3, 3, 3} };
 	Particle* p2 = new Particle(cubo);
 	sisParticulas->addParticle(p2);
 
-	BuoyancyForceGenerator* bfg = new BuoyancyForceGenerator(3, 27, 1000, p);
+	BuoyancyForceGenerator* bfg = new BuoyancyForceGenerator(3, 10, 1000, p);
 	force_registry.push_back({ bfg, p2 });
 
 	GravitationalForce* gf = new GravitationalForce({ -10, 40, 0 }, { 100,100,100 });

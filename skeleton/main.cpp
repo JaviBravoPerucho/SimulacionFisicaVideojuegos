@@ -15,6 +15,7 @@
 #include "VientoForceGenerator.h"
 #include "TorbellinoForceGenerator.h"
 #include "ExplosionForceGenerator.h"
+#include "SolidoRigido.h"
 
 #include <iostream>
 
@@ -72,8 +73,28 @@ void initPhysics(bool interactive)
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(sceneDesc);
 
-	sp = new SistemaParticulas();
-	sf = new SistemaFuerzas(sp);
+	PxRigidStatic* suelo = gPhysics->createRigidStatic(PxTransform({ 0,0,0 }));
+	PxShape* shape = CreateShape(PxBoxGeometry(100, 0.1, 100));
+	suelo->attachShape(*shape);
+	gScene->addActor(*suelo);
+
+	RenderItem* item;
+	item = new RenderItem(shape, suelo, { 0.8,0.8,0.8,1 });
+
+
+
+	SolidoRigido* sr = 
+		new SolidoRigido(PxTransform({ -70,200,-70 }), PxBoxGeometry(5, 5, 5), { 0,5,0 }, { 0,0,0 }, 0.15, { 0.8,0.8,0.8,1 }, gPhysics,gScene);
+
+	SolidoRigido* sr2 =
+		new SolidoRigido(PxTransform({ -70,250,-70 }), PxBoxGeometry(5, 5, 5), { 0,5,0 }, { 0,0,0 }, 1, { 0.8,0.8,0.8,1 }, gPhysics, gScene);
+
+	SolidoRigido* sr3 =
+		new SolidoRigido(PxTransform({ -70,150,-70 }), PxBoxGeometry(5, 5, 5), { 0,5,0 }, { 0,0,0 }, 0.05, { 0.8,0.8,0.8,1 }, gPhysics, gScene);
+
+
+	//sp = new SistemaParticulas();
+	//sf = new SistemaFuerzas(sp);
 
 	//sf->addGenerator(new GravitationalForce(Vector3(0, 0, 0), Vector3(10, 10, 10)));
 	//sf->addGenerator(new VientoForceGenerator(Vector3(0, 0, 0), Vector3(10, 10, 10), Vector3(100,100,100)));
@@ -81,7 +102,7 @@ void initPhysics(bool interactive)
 	//efg = new ExplosionForceGenerator(Vector3(0, 0, 0), Vector3(10, 10, 10), 100000, 500);
 	//sf->addGenerator(efg);
 	//sf->generateSpringDemo();
-	sf->generateBuoyancyDemo();
+	//sf->generateBuoyancyDemo();
 }
 
 
@@ -98,8 +119,8 @@ void stepPhysics(bool interactive, double t)
 	//for(auto p : bullets)
 	//	p->integrate(t);
 
-	sp->update(t);
-	sf->update(t);
+	//sp->update(t);
+	//sf->update(t);
 }
 
 // Function to clean data

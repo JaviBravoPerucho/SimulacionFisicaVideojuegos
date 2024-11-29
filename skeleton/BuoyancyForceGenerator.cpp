@@ -20,7 +20,7 @@ Vector3 BuoyancyForceGenerator::setForce(Particle* p)
 	}
 	else immersed = (h0 - h) / _height + 0.5;
 
-	f.y = _liquid_density * _volume * immersed * _gravity;
+	f.y = _liquid_density * _volume * immersed;
 
 	return f;
 }

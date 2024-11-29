@@ -269,6 +269,7 @@
     <ClCompile Include="Render\Render.cpp" />
     <ClCompile Include="SistemaFuerzas.cpp" />
     <ClCompile Include="SistemaParticulas.cpp" />
+    <ClCompile Include="SolidoRigido.cpp" />
     <ClCompile Include="SpringForceGenerator.cpp" />
     <ClCompile Include="TorbellinoForceGenerator.cpp" />
     <ClCompile Include="VientoForceGenerator.cpp" />
@@ -291,6 +292,7 @@
     <ClInclude Include="Render\Render.h" />
     <ClInclude Include="SistemaFuerzas.h" />
     <ClInclude Include="SistemaParticulas.h" />
+    <ClInclude Include="SolidoRigido.h" />
     <ClInclude Include="SpringForceGenerator.h" />
     <ClInclude Include="TorbellinoForceGenerator.h" />
     <ClInclude Include="Vector3D.h" />
