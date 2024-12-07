@@ -16,6 +16,8 @@
 #include "TorbellinoForceGenerator.h"
 #include "ExplosionForceGenerator.h"
 #include "SolidoRigido.h"
+#include "GeneradorSolidosRigidos.h"
+#include "GeneradorFuerzasSolidos.h"
 
 #include <iostream>
 
@@ -43,6 +45,8 @@ std::vector <Proyectil*>	bullets;
 SistemaParticulas*		sp				= NULL;
 SistemaFuerzas*			sf				= NULL;
 ExplosionForceGenerator* efg			 = NULL;
+GeneradorSolidosRigidos* gsr            = NULL;
+GeneradorFuerzasSolidos* gfs            = NULL;
 
 void shoot(const PxTransform &camera) {
 	bullets.push_back(new Proyectil(GetCamera()->getDir(), camera.p, 500, 6));
@@ -74,25 +78,34 @@ void initPhysics(bool interactive)
 	gScene = gPhysics->createScene(sceneDesc);
 
 	PxRigidStatic* suelo = gPhysics->createRigidStatic(PxTransform({ 0,0,0 }));
-	PxShape* shape = CreateShape(PxBoxGeometry(100, 0.1, 100));
+	PxShape* shape = CreateShape(PxBoxGeometry(1000, 0.1, 1000));
 	suelo->attachShape(*shape);
 	gScene->addActor(*suelo);
 
 	RenderItem* item;
 	item = new RenderItem(shape, suelo, { 0.8,0.8,0.8,1 });
 
+	PxGeometry* sphere = new PxSphereGeometry(5);
 
+	gsr = new GeneradorSolidosRigidos(PxVec3(0, 50, 0), 50, sphere, { 0,0,0 }, { 0,0,0 }, 0.15, { 0.8,0.8,0.8,1 }, gPhysics, gScene);
+
+	
+	PxReal inertia = 25;
+	PxVec3 inertiaTensor(inertia, inertia, inertia);
+
+	PxGeometry* box = new PxBoxGeometry(5, 5, 5);
 
 	SolidoRigido* sr = 
-		new SolidoRigido(PxTransform({ -70,200,-70 }), PxBoxGeometry(5, 5, 5), { 0,5,0 }, { 0,0,0 }, 0.15, { 0.8,0.8,0.8,1 }, gPhysics,gScene);
+		new SolidoRigido(PxTransform({ -10,5,-10 }),box, { 0,5,0 }, { 0,0,0 }, 0.15, { 0.8,0.8,0.8,1 }, gPhysics,gScene, inertiaTensor);
 
 	SolidoRigido* sr2 =
-		new SolidoRigido(PxTransform({ -70,250,-70 }), PxBoxGeometry(5, 5, 5), { 0,5,0 }, { 0,0,0 }, 1, { 0.8,0.8,0.8,1 }, gPhysics, gScene);
+		new SolidoRigido(PxTransform({ 10,5,10 }), box, { 0,5,0 }, { 0,0,0 }, 1, { 0.8,0.8,0.8,1 }, gPhysics, gScene, inertiaTensor);
 
 	SolidoRigido* sr3 =
-		new SolidoRigido(PxTransform({ -70,150,-70 }), PxBoxGeometry(5, 5, 5), { 0,5,0 }, { 0,0,0 }, 0.05, { 0.8,0.8,0.8,1 }, gPhysics, gScene);
+		new SolidoRigido(PxTransform({ 25,5,0 }), box, { 0,5,0 }, { 0,0,0 }, 0.05, { 0.8,0.8,0.8,1 }, gPhysics, gScene, inertiaTensor);
 
-
+	PxVec3 fuerza = PxVec3(0, -900.8, 0);
+	gfs = new GeneradorFuerzasSolidos(gsr, fuerza, { 0,0,0 }, { 1000,1000,1000 });
 	//sp = new SistemaParticulas();
 	//sf = new SistemaFuerzas(sp);
 
@@ -121,6 +134,9 @@ void stepPhysics(bool interactive, double t)
 
 	//sp->update(t);
 	//sf->update(t);
+
+	gsr->integrate(t);
+	gfs->applyForces();
 }
 
 // Function to clean data

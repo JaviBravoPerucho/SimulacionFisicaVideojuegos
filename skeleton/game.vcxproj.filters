@@ -26,6 +26,8 @@
     <ClCompile Include="BuoyancyForceGenerator.cpp" />
     <ClCompile Include="SolidoRigido.cpp" />
     <ClCompile Include="SistemaSolidosRigidos.cpp" />
+    <ClCompile Include="GeneradorSolidosRigidos.cpp" />
+    <ClCompile Include="GeneradorFuerzasSolidos.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -55,6 +57,8 @@
     <ClInclude Include="BuoyancyForceGenerator.h" />
     <ClInclude Include="SolidoRigido.h" />
     <ClInclude Include="SistemaSolidosRigidos.h" />
+    <ClInclude Include="GeneradorSolidosRigidos.h" />
+    <ClInclude Include="GeneradorFuerzasSolidos.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">
