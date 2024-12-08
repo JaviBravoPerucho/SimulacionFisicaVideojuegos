@@ -41,7 +41,7 @@ PxDefaultCpuDispatcher*	gDispatcher = NULL;
 PxScene*				gScene      = NULL;
 ContactReportCallback gContactReportCallback;
 
-std::vector <Proyectil*>	bullets;
+std::vector <SolidoRigido*>	pelotas;
 SistemaParticulas*		sp				= NULL;
 SistemaFuerzas*			sf				= NULL;
 ExplosionForceGenerator* efg			 = NULL;
@@ -49,7 +49,10 @@ GeneradorSolidosRigidos* gsr            = NULL;
 GeneradorFuerzasSolidos* gfs            = NULL;
 
 void shoot(const PxTransform &camera) {
-	bullets.push_back(new Proyectil(GetCamera()->getDir(), camera.p, 500, 6));
+	PxGeometry* sphere = new PxSphereGeometry(5);
+	Vector3 direction = GetCamera()->getDir();
+	direction.normalize();
+	pelotas.push_back(new SolidoRigido(PxTransform(camera.p), sphere, Vector3(direction*100), Vector3(0), 0.15,{1, 0.5,0, 1}, gPhysics, gScene, {25,25,25}));
 }
 
 
@@ -85,7 +88,7 @@ void initPhysics(bool interactive)
 	RenderItem* item;
 	item = new RenderItem(shape, suelo, { 0.8,0.8,0.8,1 });
 
-	PxGeometry* sphere = new PxSphereGeometry(5);
+	/*PxGeometry* sphere = new PxSphereGeometry(5);
 
 	gsr = new GeneradorSolidosRigidos(PxVec3(0, 50, 0), 50, sphere, { 0,0,0 }, { 0,0,0 }, 0.15, { 0.8,0.8,0.8,1 }, gPhysics, gScene);
 
@@ -105,7 +108,7 @@ void initPhysics(bool interactive)
 		new SolidoRigido(PxTransform({ 25,5,0 }), box, { 0,5,0 }, { 0,0,0 }, 0.05, { 0.8,0.8,0.8,1 }, gPhysics, gScene, inertiaTensor);
 
 	PxVec3 fuerza = PxVec3(0, -900.8, 0);
-	gfs = new GeneradorFuerzasSolidos(gsr, fuerza, { 0,0,0 }, { 1000,1000,1000 });
+	gfs = new GeneradorFuerzasSolidos(gsr, fuerza, { 0,0,0 }, { 1000,1000,1000 });*/
 	//sp = new SistemaParticulas();
 	//sf = new SistemaFuerzas(sp);
 
@@ -135,8 +138,8 @@ void stepPhysics(bool interactive, double t)
 	//sp->update(t);
 	//sf->update(t);
 
-	gsr->integrate(t);
-	gfs->applyForces();
+	//gsr->integrate(t);
+	//gfs->applyForces();
 }
 
 // Function to clean data
