@@ -12,6 +12,8 @@ public:
 
 	void addBasketToScene(PxPhysics* physics, PxScene* scene);
 
+	PxVec3 getInitPos()const { return initPos; }
+
 protected:
 	PxVec3 initPos;
 };

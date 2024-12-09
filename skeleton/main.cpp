@@ -22,8 +22,8 @@
 
 #include <iostream>
 
-std::string display_text = "This is a test";
-
+std::string display_text = "Proyecto Final - Javier Bravo Perucho";
+int puntos = 0;
 
 using namespace physx;
 
@@ -41,12 +41,13 @@ PxDefaultCpuDispatcher*	gDispatcher = NULL;
 PxScene*				gScene      = NULL;
 ContactReportCallback gContactReportCallback;
 
-std::vector <SolidoRigido*>	pelotas;
+std::vector <std::pair<SolidoRigido*, bool>>	pelotas;
 SistemaParticulas*		sp				= NULL;
 SistemaFuerzas*			sf				= NULL;
 ExplosionForceGenerator* efg			 = NULL;
 GeneradorSolidosRigidos* gsr            = NULL;
 GeneradorFuerzasSolidos* gfs            = NULL;
+Basket*					 basket			= NULL;
 
 void shoot(const PxTransform &camera) {
 	PxGeometry* sphere = new PxSphereGeometry(5);
@@ -54,7 +55,7 @@ void shoot(const PxTransform &camera) {
 	direction.y += 0.7;
 	direction.normalize();
 	SolidoRigido* pelota = new SolidoRigido(PxTransform(camera.p), sphere, Vector3(direction * 110), Vector3(0), 0.15, { 1, 0.5,0, 1 }, gPhysics, gScene, { 25,25,25 });
-	pelotas.push_back(pelota);
+	pelotas.push_back({ pelota, false });
 	gfs->addSolid(pelota);
 }
 
@@ -83,6 +84,13 @@ void initPhysics(bool interactive)
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(sceneDesc);
 
+	/*PxGeometry* sphere = new PxSphereGeometry(2);
+	PxRigidStatic * bola = gPhysics->createRigidStatic(PxTransform(PxVec3(0, 30, 0)));
+	PxShape* shape = CreateShape(*sphere);
+	bola->attachShape(*shape);
+	gScene->addActor(*bola);
+	RenderItem* item;
+	item = new RenderItem(shape, bola, { 0.8,0.8,0.8,1 });*/
 	/*PxRigidStatic* suelo = gPhysics->createRigidStatic(PxTransform({ 0,0,0 }));
 	PxShape* shape = CreateShape(PxBoxGeometry(1000, 0.1, 1000));
 	suelo->attachShape(*shape);
@@ -91,7 +99,7 @@ void initPhysics(bool interactive)
 	RenderItem* item;
 	item = new RenderItem(shape, suelo, { 0.8,0.8,0.8,1 });*/
 
-	Basket* basket = new Basket(PxVec3(0, 30,0));
+	basket = new Basket(PxVec3(0, 30,0));
 	basket->addBasketToScene(gPhysics, gScene);
 	PxVec3 fuerza = PxVec3(0, -500.8, 0);
 	gfs = new GeneradorFuerzasSolidos(gsr, fuerza, { 0,0,0 }, { 1000,1000,1000 });
@@ -99,7 +107,6 @@ void initPhysics(bool interactive)
 	/*PxGeometry* sphere = new PxSphereGeometry(5);
 
 	gsr = new GeneradorSolidosRigidos(PxVec3(0, 50, 0), 50, sphere, { 0,0,0 }, { 0,0,0 }, 0.15, { 0.8,0.8,0.8,1 }, gPhysics, gScene);
-
 	
 	PxReal inertia = 25;
 	PxVec3 inertiaTensor(inertia, inertia, inertia);
@@ -129,6 +136,11 @@ void initPhysics(bool interactive)
 	//sf->generateBuoyancyDemo();
 }
 
+bool isInside(SolidoRigido* p) {
+	return p->getRigidDynamic()->getGlobalPose().p.x > basket->getInitPos().x - 10 && p->getRigidDynamic()->getGlobalPose().p.x < basket->getInitPos().x
+		&& p->getRigidDynamic()->getGlobalPose().p.y < basket->getInitPos().y&&
+		p->getRigidDynamic()->getGlobalPose().p.z > basket->getInitPos().z - 5 && p->getRigidDynamic()->getGlobalPose().p.z < basket->getInitPos().z + 5;
+}
 
 // Function to configure what happens in each step of physics
 // interactive: true if the game is rendering, false if it offline
@@ -148,6 +160,13 @@ void stepPhysics(bool interactive, double t)
 
 	//gsr->integrate(t);
 	gfs->applyForces();
+
+	for (auto & p : pelotas) {
+		if (isInside(p.first) && !p.second) {
+			puntos++;
+			p.second = true;
+		}
+	}
 }
 
 // Function to clean data

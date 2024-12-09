@@ -48,6 +48,7 @@
 #include <string>
 
 extern std::string display_text;
+extern int puntos;
 
 namespace Snippets
 {
