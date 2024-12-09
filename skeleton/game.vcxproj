@@ -275,6 +275,7 @@
     <ClCompile Include="SolidoRigido.cpp" />
     <ClCompile Include="SpringForceGenerator.cpp" />
     <ClCompile Include="TorbellinoForceGenerator.cpp" />
+    <ClCompile Include="Basket.cpp" />
     <ClCompile Include="VientoForceGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -301,6 +302,7 @@
     <ClInclude Include="SolidoRigido.h" />
     <ClInclude Include="SpringForceGenerator.h" />
     <ClInclude Include="TorbellinoForceGenerator.h" />
+    <ClInclude Include="Basket.h" />
     <ClInclude Include="Vector3D.h" />
     <ClInclude Include="VientoForceGenerator.h" />
   </ItemGroup>

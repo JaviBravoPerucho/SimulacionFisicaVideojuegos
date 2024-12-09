@@ -18,6 +18,7 @@
 #include "SolidoRigido.h"
 #include "GeneradorSolidosRigidos.h"
 #include "GeneradorFuerzasSolidos.h"
+#include "Basket.h"
 
 #include <iostream>
 
@@ -34,7 +35,6 @@ PxPhysics*				gPhysics	= NULL;
 
 
 PxMaterial*				gMaterial	= NULL;
-
 PxPvd*                  gPvd        = NULL;
 
 PxDefaultCpuDispatcher*	gDispatcher = NULL;
@@ -51,8 +51,11 @@ GeneradorFuerzasSolidos* gfs            = NULL;
 void shoot(const PxTransform &camera) {
 	PxGeometry* sphere = new PxSphereGeometry(5);
 	Vector3 direction = GetCamera()->getDir();
+	direction.y += 0.7;
 	direction.normalize();
-	pelotas.push_back(new SolidoRigido(PxTransform(camera.p), sphere, Vector3(direction*100), Vector3(0), 0.15,{1, 0.5,0, 1}, gPhysics, gScene, {25,25,25}));
+	SolidoRigido* pelota = new SolidoRigido(PxTransform(camera.p), sphere, Vector3(direction * 110), Vector3(0), 0.15, { 1, 0.5,0, 1 }, gPhysics, gScene, { 25,25,25 });
+	pelotas.push_back(pelota);
+	gfs->addSolid(pelota);
 }
 
 
@@ -80,13 +83,18 @@ void initPhysics(bool interactive)
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(sceneDesc);
 
-	PxRigidStatic* suelo = gPhysics->createRigidStatic(PxTransform({ 0,0,0 }));
+	/*PxRigidStatic* suelo = gPhysics->createRigidStatic(PxTransform({ 0,0,0 }));
 	PxShape* shape = CreateShape(PxBoxGeometry(1000, 0.1, 1000));
 	suelo->attachShape(*shape);
 	gScene->addActor(*suelo);
 
 	RenderItem* item;
-	item = new RenderItem(shape, suelo, { 0.8,0.8,0.8,1 });
+	item = new RenderItem(shape, suelo, { 0.8,0.8,0.8,1 });*/
+
+	Basket* basket = new Basket(PxVec3(0, 30,0));
+	basket->addBasketToScene(gPhysics, gScene);
+	PxVec3 fuerza = PxVec3(0, -500.8, 0);
+	gfs = new GeneradorFuerzasSolidos(gsr, fuerza, { 0,0,0 }, { 1000,1000,1000 });
 
 	/*PxGeometry* sphere = new PxSphereGeometry(5);
 
@@ -139,7 +147,7 @@ void stepPhysics(bool interactive, double t)
 	//sf->update(t);
 
 	//gsr->integrate(t);
-	//gfs->applyForces();
+	gfs->applyForces();
 }
 
 // Function to clean data
@@ -169,7 +177,7 @@ void keyPress(unsigned char key, const PxTransform& camera)
 	{
 	//case 'B': break;
 	//case ' ':	break;
-	case 'B':
+	case ' ':
 	{
 		shoot(camera);
 		break;

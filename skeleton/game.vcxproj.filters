@@ -10,24 +10,61 @@
     <ClCompile Include="RenderUtils.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="callbacks.cpp" />
-    <ClCompile Include="Particle.cpp" />
-    <ClCompile Include="Proyectil.cpp" />
-    <ClCompile Include="Emisor.cpp" />
-    <ClCompile Include="EmisorDistribucionNormal.cpp" />
-    <ClCompile Include="EmisorDistribucionUniforme.cpp" />
-    <ClCompile Include="GravitationalForce.cpp" />
-    <ClCompile Include="SistemaFuerzas.cpp" />
-    <ClCompile Include="SistemaParticulas.cpp" />
-    <ClCompile Include="VientoForceGenerator.cpp" />
-    <ClCompile Include="TorbellinoForceGenerator.cpp" />
-    <ClCompile Include="ExplosionForceGenerator.cpp" />
-    <ClCompile Include="SpringForceGenerator.cpp" />
-    <ClCompile Include="AnchoredSpringFG.cpp" />
-    <ClCompile Include="BuoyancyForceGenerator.cpp" />
-    <ClCompile Include="SolidoRigido.cpp" />
-    <ClCompile Include="SistemaSolidosRigidos.cpp" />
-    <ClCompile Include="GeneradorSolidosRigidos.cpp" />
-    <ClCompile Include="GeneradorFuerzasSolidos.cpp" />
+    <ClCompile Include="Proyectil.cpp">
+      <Filter>Practica1</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>Practica1</Filter>
+    </ClCompile>
+    <ClCompile Include="SistemaParticulas.cpp">
+      <Filter>Practica2</Filter>
+    </ClCompile>
+    <ClCompile Include="EmisorDistribucionUniforme.cpp">
+      <Filter>Practica2</Filter>
+    </ClCompile>
+    <ClCompile Include="EmisorDistribucionNormal.cpp">
+      <Filter>Practica2</Filter>
+    </ClCompile>
+    <ClCompile Include="Emisor.cpp">
+      <Filter>Practica2</Filter>
+    </ClCompile>
+    <ClCompile Include="VientoForceGenerator.cpp">
+      <Filter>Practica3</Filter>
+    </ClCompile>
+    <ClCompile Include="TorbellinoForceGenerator.cpp">
+      <Filter>Practica3</Filter>
+    </ClCompile>
+    <ClCompile Include="SistemaFuerzas.cpp">
+      <Filter>Practica3</Filter>
+    </ClCompile>
+    <ClCompile Include="GravitationalForce.cpp">
+      <Filter>Practica3</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplosionForceGenerator.cpp">
+      <Filter>Practica3</Filter>
+    </ClCompile>
+    <ClCompile Include="SpringForceGenerator.cpp">
+      <Filter>Practica4</Filter>
+    </ClCompile>
+    <ClCompile Include="BuoyancyForceGenerator.cpp">
+      <Filter>Practica4</Filter>
+    </ClCompile>
+    <ClCompile Include="AnchoredSpringFG.cpp">
+      <Filter>Practica4</Filter>
+    </ClCompile>
+    <ClCompile Include="SolidoRigido.cpp">
+      <Filter>Practica5</Filter>
+    </ClCompile>
+    <ClCompile Include="SistemaSolidosRigidos.cpp">
+      <Filter>Practica5</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneradorSolidosRigidos.cpp">
+      <Filter>Practica5</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneradorFuerzasSolidos.cpp">
+      <Filter>Practica5</Filter>
+    </ClCompile>
+    <ClCompile Include="Basket.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -39,30 +76,86 @@
     </ClInclude>
     <ClInclude Include="RenderUtils.hpp" />
     <ClInclude Include="callbacks.hpp" />
-    <ClInclude Include="Vector3D.h" />
-    <ClInclude Include="Particle.h" />
-    <ClInclude Include="Proyectil.h" />
-    <ClInclude Include="Emisor.h" />
-    <ClInclude Include="EmisorDistribucionNormal.h" />
-    <ClInclude Include="EmisorDistribucionUniforme.h" />
-    <ClInclude Include="ForceGenerator.h" />
-    <ClInclude Include="GravitationalForce.h" />
-    <ClInclude Include="SistemaFuerzas.h" />
-    <ClInclude Include="SistemaParticulas.h" />
-    <ClInclude Include="VientoForceGenerator.h" />
-    <ClInclude Include="TorbellinoForceGenerator.h" />
-    <ClInclude Include="ExplosionForceGenerator.h" />
-    <ClInclude Include="SpringForceGenerator.h" />
-    <ClInclude Include="AnchoredSpringFG.h" />
-    <ClInclude Include="BuoyancyForceGenerator.h" />
-    <ClInclude Include="SolidoRigido.h" />
-    <ClInclude Include="SistemaSolidosRigidos.h" />
-    <ClInclude Include="GeneradorSolidosRigidos.h" />
-    <ClInclude Include="GeneradorFuerzasSolidos.h" />
+    <ClInclude Include="Proyectil.h">
+      <Filter>Practica1</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Practica1</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3D.h">
+      <Filter>Practica1</Filter>
+    </ClInclude>
+    <ClInclude Include="SistemaParticulas.h">
+      <Filter>Practica2</Filter>
+    </ClInclude>
+    <ClInclude Include="EmisorDistribucionUniforme.h">
+      <Filter>Practica2</Filter>
+    </ClInclude>
+    <ClInclude Include="EmisorDistribucionNormal.h">
+      <Filter>Practica2</Filter>
+    </ClInclude>
+    <ClInclude Include="Emisor.h">
+      <Filter>Practica2</Filter>
+    </ClInclude>
+    <ClInclude Include="VientoForceGenerator.h">
+      <Filter>Practica3</Filter>
+    </ClInclude>
+    <ClInclude Include="TorbellinoForceGenerator.h">
+      <Filter>Practica3</Filter>
+    </ClInclude>
+    <ClInclude Include="SistemaFuerzas.h">
+      <Filter>Practica3</Filter>
+    </ClInclude>
+    <ClInclude Include="GravitationalForce.h">
+      <Filter>Practica3</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplosionForceGenerator.h">
+      <Filter>Practica3</Filter>
+    </ClInclude>
+    <ClInclude Include="ForceGenerator.h">
+      <Filter>Practica3</Filter>
+    </ClInclude>
+    <ClInclude Include="SpringForceGenerator.h">
+      <Filter>Practica4</Filter>
+    </ClInclude>
+    <ClInclude Include="BuoyancyForceGenerator.h">
+      <Filter>Practica4</Filter>
+    </ClInclude>
+    <ClInclude Include="AnchoredSpringFG.h">
+      <Filter>Practica4</Filter>
+    </ClInclude>
+    <ClInclude Include="SolidoRigido.h">
+      <Filter>Practica5</Filter>
+    </ClInclude>
+    <ClInclude Include="SistemaSolidosRigidos.h">
+      <Filter>Practica5</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneradorSolidosRigidos.h">
+      <Filter>Practica5</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneradorFuerzasSolidos.h">
+      <Filter>Practica5</Filter>
+    </ClInclude>
+    <ClInclude Include="Basket.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">
       <UniqueIdentifier>{d04b4f9f-5a69-465e-8070-25c6d0bcd3c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Practica1">
+      <UniqueIdentifier>{cc88fa9d-2655-431a-b156-488875bbde47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Practica2">
+      <UniqueIdentifier>{401f283b-17e4-448f-a504-83e4a46ae601}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Practica3">
+      <UniqueIdentifier>{635887c3-0763-4b01-a89d-ae44b830b0ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Practica4">
+      <UniqueIdentifier>{27e8b3b6-32ef-4dba-bdc7-22640309df4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Practica5">
+      <UniqueIdentifier>{312d5dd2-5301-4197-b8bb-49c8ad9acab5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

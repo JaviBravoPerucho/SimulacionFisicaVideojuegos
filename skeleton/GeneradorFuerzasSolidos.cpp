@@ -2,9 +2,15 @@
 
 void GeneradorFuerzasSolidos::applyForces()
 {
-	std::list<SolidoRigido*> solidos = generador->getSolids();
+	if (generador != nullptr) {
+		std::list<SolidoRigido*> solidos = generador->getSolids();
 
-	for (auto s : solidos) {
+		for (auto s : solidos) {
+			s->getRigidDynamic()->addForce(fuerza);
+		}
+	}
+	
+	for (auto s : solids) {
 		s->getRigidDynamic()->addForce(fuerza);
 	}
 }

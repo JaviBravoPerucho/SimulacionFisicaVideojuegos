@@ -4,7 +4,7 @@
 
 #include "core.hpp"
 #include "RenderUtils.hpp"
-
+#include <iostream>
 
 using namespace physx;
 
@@ -123,7 +123,8 @@ void renderCallback()
 	//	scene->getActors(PxActorTypeFlag::eRIGID_DYNAMIC | PxActorTypeFlag::eRIGID_STATIC, reinterpret_cast<PxActor**>(&actors[0]), nbActors);
 	//	renderActors(&actors[0], static_cast<PxU32>(actors.size()), true, Vector4(1.0f, 0.0f, 0.0f, 1.0f));
 	//}
-
+	//std::cout << sCamera->getDir().x << " " << sCamera->getDir().y << " " << sCamera->getDir().z << "\n";
+	//std::cout << sCamera->getTransform().p.x << " " << sCamera->getTransform().p.y << " " << sCamera->getTransform().p.z << "\n";
 	finishRender();
 }
 
@@ -137,7 +138,7 @@ void exitCallback(void)
 void renderLoop()
 {
 	StartCounter();
-	sCamera = new Camera(PxVec3(50.0f, 50.0f, 50.0f), PxVec3(-0.6f,-0.2f,-0.7f));
+	sCamera = new Camera(PxVec3(-11.5f, 1.16f, 167.0f), PxVec3(0.02f, 0.27f,-0.96f));
 
 	setupDefaultWindow("Simulacion Fisica Videojuegos");
 	setupDefaultRenderState();

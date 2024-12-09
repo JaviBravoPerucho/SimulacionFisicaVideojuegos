@@ -8,10 +8,13 @@ public:
 
 	void applyForces();
 
+	void addSolid(SolidoRigido* solid) { solids.push_back(solid); };
+
 protected:
 	PxVec3 fuerza;
 	PxVec3 initPos;
 	PxVec3 volumen;
 	GeneradorSolidosRigidos* generador;
+	std::vector<SolidoRigido*> solids;
 };
 
