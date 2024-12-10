@@ -49,6 +49,8 @@ ExplosionForceGenerator* efg			 = NULL;
 GeneradorSolidosRigidos* gsr            = NULL;
 GeneradorFuerzasSolidos* gfs            = NULL;
 Basket*					 basket			= NULL;
+PxTransform tFlecha;
+bool rotarDerecha = false;
 
 void shoot(const PxTransform &camera) {
 	PxGeometry* sphere = new PxSphereGeometry(5);
@@ -105,7 +107,9 @@ void initPhysics(bool interactive)
 	PxVec3 fuerza = PxVec3(0, -500.8, 0);
 	gfs = new GeneradorFuerzasSolidos(gsr, fuerza, { 0,0,0 }, { 1000,1000,1000 });
 
-	
+	tFlecha = PxTransform({ basket->getInitPos().x - LON,  basket->getInitPos().y - LON*4, basket->getInitPos().z+ LON*10 });
+	RenderItem* ri = new RenderItem(CreateShape(PxBoxGeometry(2, 10, 2)), &tFlecha, Vector4(1, 1, 1, 1));
+
 
 	/*PxGeometry* sphere = new PxSphereGeometry(5);
 
@@ -140,6 +144,22 @@ void initPhysics(bool interactive)
 
 	sp = new SistemaParticulas();
 
+}
+
+void rotarFlecha(float radianes) {
+	// Paso 1: Calcular la rotación actual en relación con el origen deseado
+	PxQuat currentRotation = tFlecha.q;
+	PxQuat rotation(radianes, PxVec3(0, 0, 1));
+	// Paso 2: Calcular el ángulo de rotación acumulado (en radianes)
+	float currentAngle = currentRotation.getAngle(); // Obtiene el ángulo del quaternion actual
+	float desiredAngle = rotation.getAngle(); // Obtiene el ángulo del quaternion deseado
+
+	PxVec3 offset = PxVec3(0, +5, 0);
+	cout << currentAngle << '\n';
+	PxVec3 rotatedOffset = rotation.rotate(offset);
+	PxVec3 newCenter = tFlecha.p - offset + rotatedOffset;
+	PxTransform newTransform(newCenter, rotation * tFlecha.q);
+	tFlecha = newTransform;
 }
 
 void sumaPuntos() {
@@ -177,6 +197,11 @@ void stepPhysics(bool interactive, double t)
 			p.second = true;
 		}
 	}
+	if (rotarDerecha)rotarFlecha(-PxPi / 90);
+	else rotarFlecha(PxPi / 90);
+
+	if (tFlecha.q.getAngle() > PxPi / 4 && tFlecha.q.getImaginaryPart().z > 0 && !rotarDerecha)rotarDerecha = true;
+	else if (tFlecha.q.getAngle() > PxPi / 4 && tFlecha.q.getImaginaryPart().z < 0 && rotarDerecha)rotarDerecha = false;
 }
 
 // Function to clean data
@@ -213,6 +238,10 @@ void keyPress(unsigned char key, const PxTransform& camera)
 	}
 	case 'E':
 		efg->setExplode();
+		break;
+	case 'A':
+		break;
+	case 'D':
 		break;
 	default:
 		break;
