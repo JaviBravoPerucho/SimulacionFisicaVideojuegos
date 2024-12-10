@@ -38,13 +38,15 @@ public:
 	Vector3 getAc()const { return a; }
 	float getMasa()const { return masa; }
 
-	bool estaFuera(double limite)const { return transform.p.x >= limite || transform.p.y >= limite || transform.p.z >= limite; }
+	bool estaFuera(double limite)const { return transform.p.x >= limite || transform.p.y >= limite || transform.p.z >= limite ||
+												transform.p.x < -limite || transform.p.y < -limite || transform.p.z < -limite; }
 
 	void addForce(Vector3 f) {	fuerzaTotal = f;};
 
 	void setVel(Vector3 v) { vel = v; }
 	void setPos(Vector3 p) { transform = PxTransform(p); }
 	void setMass(float m) { masa = m; }
+
 private:
 	Vector3 vel;
 	Vector3 pose;

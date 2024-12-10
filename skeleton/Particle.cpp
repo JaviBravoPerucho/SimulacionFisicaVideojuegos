@@ -1,6 +1,6 @@
 #include "Particle.h"
 
-Particle::Particle(Vector3 Pos, Vector3 Vel, Vector3 ac, float tiempoDeVida, float m):vel(Vel),pose(Pos), masa(m), a(ac), tiempo(tiempoDeVida), fuerzaTotal(0)
+Particle::Particle(Vector3 Pos, Vector3 Vel, Vector3 ac, float tiempoDeVida, float m) :vel(Vel), pose(Pos), masa(m), a(ac), tiempo(tiempoDeVida), fuerzaTotal(0)
 {
 
 	transform = physx::PxTransform(pose);

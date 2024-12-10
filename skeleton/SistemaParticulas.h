@@ -15,8 +15,12 @@ public:
 
 	void integrateParticles(double t);
 
+	void eliminarEmisor(Emisor* emisor);
+	void añadirEmisor(Emisor* emisor);
+
 private:
-	std::vector<Emisor*> emisoresDeParticulas;
+	std::list<Emisor*> emisoresDeParticulas;
+	std::list<Emisor*> emisoresDeParticulasAEliminar;
 	std::list<Particle*> particulas;
 	float tiempoTotal;
 };

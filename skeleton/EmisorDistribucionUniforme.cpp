@@ -11,8 +11,10 @@ double EmisorDistribucionUniforme::distribucionUniforme(double a, double b)
 
 void EmisorDistribucionUniforme::createParticle()
 {
+	Vector4 color = { (float)distribucionUniforme(0,1),(float)distribucionUniforme(0,1), (float)distribucionUniforme(0,1), 1 };
+	modelo_particula.color = color;
 	Particle* p = new Particle(modelo_particula);
-	p->setVel(Vector3(distribucionUniforme(1.0, desviacion), distribucionUniforme(2.0, desviacion), distribucionUniforme(1.0, desviacion)));
+	p->setVel(Vector3(distribucionUniforme(-desviacion, desviacion), distribucionUniforme(-desviacion, desviacion), distribucionUniforme(-desviacion, desviacion)));
 	p->setTiempo(tiempoDeVida + tiempoTotal);
 	fuente.push_back(p);
 }

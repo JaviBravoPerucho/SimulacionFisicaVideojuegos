@@ -24,6 +24,7 @@
 
 std::string display_text = "Proyecto Final - Javier Bravo Perucho";
 int puntos = 0;
+const int LON = 10;
 
 using namespace physx;
 
@@ -77,7 +78,7 @@ void initPhysics(bool interactive)
 
 	// For Solid Rigids +++++++++++++++++++++++++++++++++++++
 	PxSceneDesc sceneDesc(gPhysics->getTolerancesScale());
-	sceneDesc.gravity = PxVec3(0.0f, -9.8f, 0.0f);
+	//sceneDesc.gravity = PxVec3(0.0f, -9.8f, 0.0f);
 	gDispatcher = PxDefaultCpuDispatcherCreate(2);
 	sceneDesc.cpuDispatcher = gDispatcher;
 	sceneDesc.filterShader = contactReportFilterShader;
@@ -103,6 +104,8 @@ void initPhysics(bool interactive)
 	basket->addBasketToScene(gPhysics, gScene);
 	PxVec3 fuerza = PxVec3(0, -500.8, 0);
 	gfs = new GeneradorFuerzasSolidos(gsr, fuerza, { 0,0,0 }, { 1000,1000,1000 });
+
+	
 
 	/*PxGeometry* sphere = new PxSphereGeometry(5);
 
@@ -134,12 +137,22 @@ void initPhysics(bool interactive)
 	//sf->addGenerator(efg);
 	//sf->generateSpringDemo();
 	//sf->generateBuoyancyDemo();
+
+	sp = new SistemaParticulas();
+
+}
+
+void sumaPuntos() {
+	puntos++;
+
+	Vector3 pos = { basket->getInitPos().x - LON,  basket->getInitPos().y - LON, basket->getInitPos().z + LON / 2 };
+	sp->añadirEmisor(new EmisorDistribucionUniforme(pos, 2, 20, 20, 2.0f, 1.0f));
 }
 
 bool isInside(SolidoRigido* p) {
-	return p->getRigidDynamic()->getGlobalPose().p.x > basket->getInitPos().x - 10 && p->getRigidDynamic()->getGlobalPose().p.x < basket->getInitPos().x
+	return p->getRigidDynamic()->getGlobalPose().p.x > basket->getInitPos().x - LON && p->getRigidDynamic()->getGlobalPose().p.x < basket->getInitPos().x
 		&& p->getRigidDynamic()->getGlobalPose().p.y < basket->getInitPos().y&&
-		p->getRigidDynamic()->getGlobalPose().p.z > basket->getInitPos().z - 5 && p->getRigidDynamic()->getGlobalPose().p.z < basket->getInitPos().z + 5;
+		p->getRigidDynamic()->getGlobalPose().p.z > basket->getInitPos().z - LON/2 && p->getRigidDynamic()->getGlobalPose().p.z < basket->getInitPos().z + LON/2;
 }
 
 // Function to configure what happens in each step of physics
@@ -152,10 +165,7 @@ void stepPhysics(bool interactive, double t)
 	gScene->simulate(t);
 	gScene->fetchResults(true);
 
-	//for(auto p : bullets)
-	//	p->integrate(t);
-
-	//sp->update(t);
+	sp->update(t);
 	//sf->update(t);
 
 	//gsr->integrate(t);
@@ -163,7 +173,7 @@ void stepPhysics(bool interactive, double t)
 
 	for (auto & p : pelotas) {
 		if (isInside(p.first) && !p.second) {
-			puntos++;
+			sumaPuntos();
 			p.second = true;
 		}
 	}

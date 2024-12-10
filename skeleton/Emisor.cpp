@@ -3,7 +3,7 @@
 void Emisor::integrate(double t)
 {
 	tiempoTotal += t;
-	createParticle();
+	if(tiempoTotal < tiempoEmitiendo)createParticle();
 
 	std::list<Particle*>::iterator it = fuente.begin();
 
