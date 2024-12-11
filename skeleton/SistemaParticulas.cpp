@@ -13,12 +13,10 @@ void SistemaParticulas::update(double t)
 		e->integrate(t);
 		if (e->eliminar())emisoresDeParticulasAEliminar.push_back(e);
 	}
-	if(!emisoresDeParticulas.empty())particulas = emisoresDeParticulas.back()->getParticles();
-
 	//if (!particulas.empty())integrateParticles(t);
 
 	for (auto e : emisoresDeParticulasAEliminar) {
-		if(particulas.empty())emisoresDeParticulas.remove(e);//Solo se elimina cuando no quedan partículas para poder aplicarles las fuerzas
+		if(e->getParticles().empty())emisoresDeParticulas.remove(e);//Solo se elimina cuando no quedan partículas para poder aplicarles las fuerzas
 	}
 }
 
@@ -36,9 +34,13 @@ void SistemaParticulas::integrateParticles(double t)
 
 	std::list<Particle*>::iterator it = particulas.begin();
 
-	while (it != particulas.end()) {
-		(*it)->integrate(t);
-		it++;
+	for (auto e : emisoresDeParticulas) {
+		particulas = e->getParticles();
+		while (it != particulas.end()) {
+			(*it)->integrate(t);
+			it++;
+		}
 	}
+
 }
 

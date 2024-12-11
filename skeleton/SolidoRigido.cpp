@@ -1,6 +1,6 @@
 #include "SolidoRigido.h"
 
-SolidoRigido::SolidoRigido(PxTransform t, PxGeometry* geo, Vector3 linear_v, Vector3 ang_v, float density, Vector4 color, PxPhysics* phys, PxScene* scene, PxVec3 inertia)
+SolidoRigido::SolidoRigido(PxTransform t, PxGeometry* geo, Vector3 linear_v, Vector3 ang_v, float mas, Vector4 color, PxPhysics* phys, PxScene* scene, PxVec3 inertia)
 {
 	PxReal staticFriction = 0.5f;
 	PxReal dynamicFriction = 0.3f;
@@ -13,7 +13,7 @@ SolidoRigido::SolidoRigido(PxTransform t, PxGeometry* geo, Vector3 linear_v, Vec
 	shape = CreateShape(*geo, material);
 	solid->attachShape(*shape);
 	//PxReal radius = 1.0f;
-	PxReal mass = 10.0f;
+	PxReal mass = mas;
 
 	//PxReal inertia = (2.0f / 5.0f) * mass * radius * radius;
 	//PxVec3 inertiaTensor(inertia, inertia, inertia);

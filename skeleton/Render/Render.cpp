@@ -290,7 +290,9 @@ void startRender(const PxVec3& cameraEye, const PxVec3& cameraDir, PxReal clipNe
 	glColor4f(1.0f, 0.2f, 0.2f, 1.0f);
 	drawText(display_text, 0, 0);
 	glColor4f(0.0f, 0.0f, 0.0f, 0.0f);
-	drawText("Puntos: " + std::to_string(puntos), 200, 400);
+	drawText("Puntos: " + std::to_string(puntos) + "/5", 200, 400);
+	drawText("Nivel: " + std::to_string(nivel_text) + "/5", 50, 500);
+	drawText("Viento:" + std::to_string(viento) + "m/s", 350, 500);
 	glColor4f(1.0f, 0.2f, 0.2f, 1.0f);
 
 	// Setup camera

@@ -19,13 +19,19 @@
 #include "GeneradorSolidosRigidos.h"
 #include "GeneradorFuerzasSolidos.h"
 #include "Basket.h"
+#include "Nivel1.h"
+#include "Nivel2.h"
 
 #include <iostream>
 
 std::string display_text = "Proyecto Final - Javier Bravo Perucho";
 int puntos = 0;
+int nivel_text = 0;
+int viento = 0;
 const int LON = 10;
-
+const int FLECHA_X = -11;
+const int FLECHA_Y = -10;
+const int FLECHA_Z = 100;
 using namespace physx;
 
 PxDefaultAllocator		gAllocator;
@@ -47,23 +53,20 @@ SistemaParticulas*		sp				= NULL;
 SistemaFuerzas*			sf				= NULL;
 ExplosionForceGenerator* efg			 = NULL;
 GeneradorSolidosRigidos* gsr            = NULL;
-GeneradorFuerzasSolidos* gfs            = NULL;
-Basket*					 basket			= NULL;
-PxShape* formaPotenciador=NULL;
-PxTransform tPotenciador;
+Nivel* nivelActual						= NULL;
+
 PxTransform tFlecha;
 bool rotarDerecha = false;
-
 
 void shoot(const PxTransform &camera) {
 	PxGeometry* sphere = new PxSphereGeometry(5);
 	Vector3 direction = GetCamera()->getDir();
 	direction.y += 0.7;
-	direction.x = (tFlecha.p.x + 10)/10;
+	direction.x = (tFlecha.p.x + 11)/11;
 	direction.normalize();
-	SolidoRigido* pelota = new SolidoRigido(PxTransform(camera.p), sphere, Vector3(direction * 110), Vector3(0), 0.15, { 1, 0.5,0, 1 }, gPhysics, gScene, { 25,25,25 });
+	SolidoRigido* pelota = new SolidoRigido(PxTransform(camera.p), sphere, Vector3(direction * 110), Vector3(0), 0.17, { 1, 0.5,0, 1 }, gPhysics, gScene, { 25,25,25 });
 	pelotas.push_back({ pelota, false });
-	gfs->addSolid(pelota);
+	nivelActual->addSolid(pelota);
 }
 
 
@@ -91,6 +94,10 @@ void initPhysics(bool interactive)
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(sceneDesc);
 
+	nivelActual = new Nivel2(PxVec3(0, 30, 0), gPhysics, gScene, 2);
+	viento = nivelActual->getVientoValue();
+	nivel_text = nivelActual->getNivel();
+
 	/*PxGeometry* sphere = new PxSphereGeometry(2);
 	PxRigidStatic * bola = gPhysics->createRigidStatic(PxTransform(PxVec3(0, 30, 0)));
 	PxShape* shape = CreateShape(*sphere);
@@ -106,19 +113,8 @@ void initPhysics(bool interactive)
 	RenderItem* item;
 	item = new RenderItem(shape, suelo, { 0.8,0.8,0.8,1 });*/
 
-	basket = new Basket(PxVec3(0, 30,0));
-	basket->addBasketToScene(gPhysics, gScene);
-	PxVec3 fuerza = PxVec3(0, -500.8, 0);
-	gfs = new GeneradorFuerzasSolidos(gsr, fuerza, { 0,0,0 }, { 1000,1000,1000 });
-
-	tFlecha = PxTransform({ basket->getInitPos().x - LON,  basket->getInitPos().y - LON*4, basket->getInitPos().z+ LON*10 });
-	RenderItem* ri = new RenderItem(CreateShape(PxBoxGeometry(1, 10, 1)), &tFlecha, Vector4(1, 1, 1, 1));
-
-	tPotenciador = PxTransform({ basket->getInitPos().x + LON,  basket->getInitPos().y - LON * 2, basket->getInitPos().z + LON * 12 });
-	formaPotenciador = CreateShape(PxBoxGeometry(1, 10, 1));
-	RenderItem * ri2 = new RenderItem(formaPotenciador, &tPotenciador, Vector4(1, 0, 0, 1));
-
-	ri2->ChangeShape(PxBoxGeometry(1, 9, 5));
+	tFlecha = PxTransform({ FLECHA_X,  FLECHA_Y, FLECHA_Z });
+	RenderItem* flecha = new RenderItem(CreateShape(PxBoxGeometry(1, 10, 1)), &tFlecha, Vector4(1, 1, 1, 1));
 
 	/*PxGeometry* sphere = new PxSphereGeometry(5);
 
@@ -156,33 +152,38 @@ void initPhysics(bool interactive)
 }
 
 void rotarFlecha(float radianes) {
-	if (tFlecha.q.getAngle() > PxPi / 4 && tFlecha.q.getImaginaryPart().z > 0 && !rotarDerecha)return;
-	else if (tFlecha.q.getAngle() > PxPi / 4 && tFlecha.q.getImaginaryPart().z < 0 && rotarDerecha)return;
+	if (tFlecha.q.getAngle() > PxPi / 4 && tFlecha.q.getImaginaryPart().z > 0 && !rotarDerecha) {
+		rotarDerecha = true;
+		return;
+	}
+	else if (tFlecha.q.getAngle() > PxPi / 4 && tFlecha.q.getImaginaryPart().z < 0 && rotarDerecha) {
+		rotarDerecha = false;
+		return;
+	}
 	// Paso 1: Calcular la rotación actual en relación con el origen deseado
-	PxQuat currentRotation = tFlecha.q;
-	PxQuat rotation(radianes, PxVec3(0, 0, 1));
-	// Paso 2: Calcular el ángulo de rotación acumulado (en radianes)
-	float currentAngle = currentRotation.getAngle(); // Obtiene el ángulo del quaternion actual
-	float desiredAngle = rotation.getAngle(); // Obtiene el ángulo del quaternion deseado
 
-	PxVec3 offset = PxVec3(0, +5, 0);
+	PxQuat rotation(radianes, PxVec3(0, 0, 1));
+
+	PxVec3 offset = PxVec3(0, +10, 0);
 	PxVec3 rotatedOffset = rotation.rotate(offset);
 	PxVec3 newCenter = tFlecha.p - offset + rotatedOffset;
+
 	PxTransform newTransform(newCenter, rotation * tFlecha.q);
+
 	tFlecha = newTransform;
 }
 
 void sumaPuntos() {
 	puntos++;
 
-	Vector3 pos = { basket->getInitPos().x - LON,  basket->getInitPos().y - LON, basket->getInitPos().z + LON / 2 };
+	Vector3 pos = { nivelActual->getBasketPos().x - LON-2,  nivelActual->getBasketPos().y - LON, nivelActual->getBasketPos().z + LON / 2 };
 	sp->añadirEmisor(new EmisorDistribucionUniforme(pos, 2, 20, 20, 2.0f, 1.0f));
 }
 
 bool isInside(SolidoRigido* p) {
-	return p->getRigidDynamic()->getGlobalPose().p.x > basket->getInitPos().x - LON && p->getRigidDynamic()->getGlobalPose().p.x < basket->getInitPos().x
-		&& p->getRigidDynamic()->getGlobalPose().p.y < basket->getInitPos().y&&
-		p->getRigidDynamic()->getGlobalPose().p.z > basket->getInitPos().z - LON/2 && p->getRigidDynamic()->getGlobalPose().p.z < basket->getInitPos().z + LON/2;
+	return p->getRigidDynamic()->getGlobalPose().p.x > nivelActual->getBasketPos().x - LON*2 && p->getRigidDynamic()->getGlobalPose().p.x < nivelActual->getBasketPos().x
+		&& p->getRigidDynamic()->getGlobalPose().p.y < nivelActual->getBasketPos().y&&
+		p->getRigidDynamic()->getGlobalPose().p.z >nivelActual->getBasketPos().z - LON / 2 && p->getRigidDynamic()->getGlobalPose().p.z < nivelActual->getBasketPos().z + LON / 2;
 }
 
 // Function to configure what happens in each step of physics
@@ -199,7 +200,7 @@ void stepPhysics(bool interactive, double t)
 	//sf->update(t);
 
 	//gsr->integrate(t);
-	gfs->applyForces();
+	nivelActual->applyForces();
 
 	for (auto & p : pelotas) {
 		if (isInside(p.first) && !p.second) {
@@ -207,7 +208,8 @@ void stepPhysics(bool interactive, double t)
 			p.second = true;
 		}
 	}
-
+	if(!rotarDerecha)	rotarFlecha(PxPi / 90);
+	else rotarFlecha(-PxPi / 90);
 }
 
 // Function to clean data
@@ -246,12 +248,9 @@ void keyPress(unsigned char key, const PxTransform& camera)
 		efg->setExplode();
 		break;
 	case 'A':
-		rotarFlecha(PxPi / 90);
-		rotarDerecha = false;
 		break;
 	case 'D':
-		rotarFlecha(-PxPi / 90);
-		rotarDerecha = true;
+
 		break;
 	default:
 		break;

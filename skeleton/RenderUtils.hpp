@@ -11,28 +11,30 @@ void DeregisterRenderItem(const RenderItem* _item);
 class RenderItem
 {
 public:
+	bool active;
+
 	RenderItem(physx::PxShape* _shape, const physx::PxTransform* _trans, const Vector4& _color) :
-		shape(_shape), transform(_trans), actor(NULL), color(_color), references(1)
+		shape(_shape), transform(_trans), actor(NULL), color(_color), references(1), active(true)
 	{
 		shape->acquireReference();
 		RegisterRenderItem(this);
 	}
 
 	RenderItem(physx::PxShape* _shape, const Vector4& _color) :
-		shape(_shape), transform(NULL), actor(NULL), color(_color), references(1)
+		shape(_shape), transform(NULL), actor(NULL), color(_color), references(1), active(true)
 	{
 		shape->acquireReference();
 		RegisterRenderItem(this);
 	}
 
 	RenderItem(physx::PxShape* _shape, const physx::PxRigidActor* _actor, const Vector4& _color) :
-		shape(_shape), transform(NULL), actor(_actor), color(_color), references(1)
+		shape(_shape), transform(NULL), actor(_actor), color(_color), references(1), active(true)
 	{
 		shape->acquireReference();
 		RegisterRenderItem(this);
 	}
 
-	RenderItem() : shape(NULL), transform(NULL), references(1) {}
+	RenderItem() : shape(NULL), transform(NULL), references(1), active(true) {}
 
 	void addReference()
 	{
@@ -48,6 +50,14 @@ public:
 			shape->release();
 			delete this;
 		}
+	}
+
+	void setActive(bool state) {
+		active = state;
+	}
+
+	void changeColor(Vector4 col) {
+		color = col;
 	}
 
 public:
