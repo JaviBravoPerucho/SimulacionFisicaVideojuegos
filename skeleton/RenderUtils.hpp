@@ -56,6 +56,11 @@ public:
 	const physx::PxRigidActor* actor;
 	Vector4 color;
 
+	void ChangeShape(const physx::PxGeometry& geo) {
+
+		shape->setGeometry(geo);
+	}
+
 	unsigned references;
 };
 
@@ -63,5 +68,6 @@ double GetLastTime();
 Camera* GetCamera();
 
 physx::PxShape* CreateShape(const physx::PxGeometry& geo, const physx::PxMaterial* mat = nullptr);
+
 
 #endif

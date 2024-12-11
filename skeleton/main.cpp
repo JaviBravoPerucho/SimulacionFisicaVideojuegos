@@ -49,13 +49,17 @@ ExplosionForceGenerator* efg			 = NULL;
 GeneradorSolidosRigidos* gsr            = NULL;
 GeneradorFuerzasSolidos* gfs            = NULL;
 Basket*					 basket			= NULL;
+PxShape* formaPotenciador=NULL;
+PxTransform tPotenciador;
 PxTransform tFlecha;
 bool rotarDerecha = false;
+
 
 void shoot(const PxTransform &camera) {
 	PxGeometry* sphere = new PxSphereGeometry(5);
 	Vector3 direction = GetCamera()->getDir();
 	direction.y += 0.7;
+	direction.x = (tFlecha.p.x + 10)/10;
 	direction.normalize();
 	SolidoRigido* pelota = new SolidoRigido(PxTransform(camera.p), sphere, Vector3(direction * 110), Vector3(0), 0.15, { 1, 0.5,0, 1 }, gPhysics, gScene, { 25,25,25 });
 	pelotas.push_back({ pelota, false });
@@ -108,8 +112,13 @@ void initPhysics(bool interactive)
 	gfs = new GeneradorFuerzasSolidos(gsr, fuerza, { 0,0,0 }, { 1000,1000,1000 });
 
 	tFlecha = PxTransform({ basket->getInitPos().x - LON,  basket->getInitPos().y - LON*4, basket->getInitPos().z+ LON*10 });
-	RenderItem* ri = new RenderItem(CreateShape(PxBoxGeometry(2, 10, 2)), &tFlecha, Vector4(1, 1, 1, 1));
+	RenderItem* ri = new RenderItem(CreateShape(PxBoxGeometry(1, 10, 1)), &tFlecha, Vector4(1, 1, 1, 1));
 
+	tPotenciador = PxTransform({ basket->getInitPos().x + LON,  basket->getInitPos().y - LON * 2, basket->getInitPos().z + LON * 12 });
+	formaPotenciador = CreateShape(PxBoxGeometry(1, 10, 1));
+	RenderItem * ri2 = new RenderItem(formaPotenciador, &tPotenciador, Vector4(1, 0, 0, 1));
+
+	ri2->ChangeShape(PxBoxGeometry(1, 9, 5));
 
 	/*PxGeometry* sphere = new PxSphereGeometry(5);
 
@@ -147,6 +156,8 @@ void initPhysics(bool interactive)
 }
 
 void rotarFlecha(float radianes) {
+	if (tFlecha.q.getAngle() > PxPi / 4 && tFlecha.q.getImaginaryPart().z > 0 && !rotarDerecha)return;
+	else if (tFlecha.q.getAngle() > PxPi / 4 && tFlecha.q.getImaginaryPart().z < 0 && rotarDerecha)return;
 	// Paso 1: Calcular la rotación actual en relación con el origen deseado
 	PxQuat currentRotation = tFlecha.q;
 	PxQuat rotation(radianes, PxVec3(0, 0, 1));
@@ -155,7 +166,6 @@ void rotarFlecha(float radianes) {
 	float desiredAngle = rotation.getAngle(); // Obtiene el ángulo del quaternion deseado
 
 	PxVec3 offset = PxVec3(0, +5, 0);
-	cout << currentAngle << '\n';
 	PxVec3 rotatedOffset = rotation.rotate(offset);
 	PxVec3 newCenter = tFlecha.p - offset + rotatedOffset;
 	PxTransform newTransform(newCenter, rotation * tFlecha.q);
@@ -197,11 +207,7 @@ void stepPhysics(bool interactive, double t)
 			p.second = true;
 		}
 	}
-	if (rotarDerecha)rotarFlecha(-PxPi / 90);
-	else rotarFlecha(PxPi / 90);
 
-	if (tFlecha.q.getAngle() > PxPi / 4 && tFlecha.q.getImaginaryPart().z > 0 && !rotarDerecha)rotarDerecha = true;
-	else if (tFlecha.q.getAngle() > PxPi / 4 && tFlecha.q.getImaginaryPart().z < 0 && rotarDerecha)rotarDerecha = false;
 }
 
 // Function to clean data
@@ -240,8 +246,12 @@ void keyPress(unsigned char key, const PxTransform& camera)
 		efg->setExplode();
 		break;
 	case 'A':
+		rotarFlecha(PxPi / 90);
+		rotarDerecha = false;
 		break;
 	case 'D':
+		rotarFlecha(-PxPi / 90);
+		rotarDerecha = true;
 		break;
 	default:
 		break;
