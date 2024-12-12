@@ -6,6 +6,10 @@ enum ObstacleType {
 	DERIZQ, DERIZQ2, ARRABA, DIAGONAL
 };
 
+enum MuelleType {
+	DOBLE1, DOBLE2, ANCHORED
+};
+
 
 class Nivel
 {
@@ -28,6 +32,7 @@ public:
 	virtual int getVientoValue()const { return 0; };
 	virtual void addObstacle(ObstacleType tipo) = 0;
 	virtual void updateObstacles() = 0;
+	virtual void addMuelle(MuelleType tipo) = 0;
 
 protected:
 	Basket* basket;

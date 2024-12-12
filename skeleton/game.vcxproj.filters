@@ -64,11 +64,25 @@
     <ClCompile Include="GeneradorFuerzasSolidos.cpp">
       <Filter>Practica5</Filter>
     </ClCompile>
-    <ClCompile Include="Basket.cpp" />
-    <ClCompile Include="Nivel1.cpp" />
-    <ClCompile Include="Nivel.cpp" />
-    <ClCompile Include="Nivel2.cpp" />
-    <ClCompile Include="Nivel3.cpp" />
+    <ClCompile Include="Nivel1.cpp">
+      <Filter>ProyectoFinal</Filter>
+    </ClCompile>
+    <ClCompile Include="Nivel2.cpp">
+      <Filter>ProyectoFinal</Filter>
+    </ClCompile>
+    <ClCompile Include="Nivel3.cpp">
+      <Filter>ProyectoFinal</Filter>
+    </ClCompile>
+    <ClCompile Include="Nivel4.cpp">
+      <Filter>ProyectoFinal</Filter>
+    </ClCompile>
+    <ClCompile Include="Nivel.cpp">
+      <Filter>ProyectoFinal</Filter>
+    </ClCompile>
+    <ClCompile Include="Basket.cpp">
+      <Filter>ProyectoFinal</Filter>
+    </ClCompile>
+    <ClCompile Include="SpringForceSolids.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -140,11 +154,25 @@
     <ClInclude Include="GeneradorFuerzasSolidos.h">
       <Filter>Practica5</Filter>
     </ClInclude>
-    <ClInclude Include="Basket.h" />
-    <ClInclude Include="Nivel1.h" />
-    <ClInclude Include="Nivel.h" />
-    <ClInclude Include="Nivel2.h" />
-    <ClInclude Include="Nivel3.h" />
+    <ClInclude Include="Nivel4.h">
+      <Filter>ProyectoFinal</Filter>
+    </ClInclude>
+    <ClInclude Include="Nivel1.h">
+      <Filter>ProyectoFinal</Filter>
+    </ClInclude>
+    <ClInclude Include="Nivel2.h">
+      <Filter>ProyectoFinal</Filter>
+    </ClInclude>
+    <ClInclude Include="Nivel3.h">
+      <Filter>ProyectoFinal</Filter>
+    </ClInclude>
+    <ClInclude Include="Nivel.h">
+      <Filter>ProyectoFinal</Filter>
+    </ClInclude>
+    <ClInclude Include="Basket.h">
+      <Filter>ProyectoFinal</Filter>
+    </ClInclude>
+    <ClInclude Include="SpringForceSolids.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">
@@ -164,6 +192,9 @@
     </Filter>
     <Filter Include="Practica5">
       <UniqueIdentifier>{312d5dd2-5301-4197-b8bb-49c8ad9acab5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ProyectoFinal">
+      <UniqueIdentifier>{cb35d767-500e-46a5-ad5d-75bff5a7e7d8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
