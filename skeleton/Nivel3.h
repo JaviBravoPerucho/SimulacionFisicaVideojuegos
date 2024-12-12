@@ -27,6 +27,13 @@ public:
 
 	void updateObstacles();
 
+	~Nivel3() {
+		delete obs1;
+		delete obs2;
+		delete obs3;
+		delete obs4;
+	}
+
 private:
 	SolidoRigido* obs1;
 	SolidoRigido* obs2;

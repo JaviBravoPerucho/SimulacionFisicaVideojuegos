@@ -2,6 +2,6 @@
 
 Nivel::Nivel(Vector3 posBasket, PxPhysics* physics, PxScene* scene, int niv):nivel(niv)
 {
-	basket = new Basket(PxVec3(0, 30, 0));
+	basket = new Basket(posBasket);
 	basket->addBasketToScene(physics, scene);
 }

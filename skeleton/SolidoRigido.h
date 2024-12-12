@@ -15,9 +15,16 @@ public:
 
 	void setVelocity(Vector3 vel) { solid->setLinearVelocity(vel); }
 
+	~SolidoRigido() {
+		renderItem->release();
+		shape->release();
+		gScene->removeActor(*solid);
+	}
+
 protected:
 	PxRigidDynamic* solid;
 	PxShape* shape;
 	RenderItem* renderItem;
+	PxScene* gScene;
 };
 

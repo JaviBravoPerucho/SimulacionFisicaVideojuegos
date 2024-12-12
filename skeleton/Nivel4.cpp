@@ -1,22 +1,27 @@
 #include "Nivel4.h"
 
-void Nivel4::addMuelle(MuelleType tipo)
+void Nivel4::setDif(Difficulty tipo)
 {
-	PxGeometry* sphere = new PxSphereGeometry(BALL_DIM);
 
 	switch (tipo) {
-	case DOBLE1:
-		muelle1 = new SolidoRigido(PxTransform(POS_MUE1), sphere, Vector3(0), Vector3(0), 100000.0f, Vector4(1, 0, 0, 1), gPhysics, gScene, PxVec3(0));
-		muelle2 = new SolidoRigido(PxTransform(POS_MUE2), sphere, Vector3(0), Vector3(0), 100000.0f, Vector4(1, 0, 0, 1), gPhysics, gScene, PxVec3(0));
+	case DIF1:
+		generadorMuelles1->setK(10000);
+		generadorMuelles2->setK(10000);
 		break;
-	case DOBLE2:
-		muelle3 = new SolidoRigido(PxTransform(POS_MUE3), sphere, Vector3(0), Vector3(0), 100000.0f, Vector4(0, 1, 0, 1), gPhysics, gScene, PxVec3(0));
-		muelle4 = new SolidoRigido(PxTransform(POS_MUE4), sphere, Vector3(0), Vector3(0), 100000.0f, Vector4(0, 1, 0, 1), gPhysics, gScene, PxVec3(0));
-
+	case DIF2:
+		generadorMuelles1->setK(100000);
+		generadorMuelles2->setK(100000);
 		break;
-	case ANCHORED:
-		muelle5 = new SolidoRigido(PxTransform(POS_MUE5), sphere, Vector3( 0), Vector3(0), 100000.0f, Vector4(0, 0, 1, 1), gPhysics, gScene, PxVec3(0));
-
+	case DIF3:
+		generadorMuelles1->setK(1000000);
+		generadorMuelles2->setK(1000000);
 		break;
 	}
+}
+
+void Nivel4::updateMuelles() {
+	generadorMuelles1->setForce(muelle1);
+	generadorMuelles2->setForce(muelle2);
+	generadorMuelles1->applyForces();
+	generadorMuelles2->applyForces();
 }

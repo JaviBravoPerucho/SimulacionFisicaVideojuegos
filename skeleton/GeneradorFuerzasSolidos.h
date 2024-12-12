@@ -10,6 +10,8 @@ public:
 
 	void addSolid(SolidoRigido* solid) { solids.push_back(solid); };
 
+	void setForce(PxVec3 f) { fuerza = f; }
+
 protected:
 	PxVec3 fuerza;
 	PxVec3 initPos;

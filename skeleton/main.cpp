@@ -22,17 +22,19 @@
 #include "Nivel1.h"
 #include "Nivel2.h"
 #include "Nivel3.h"
+#include "Nivel4.h"
 
 #include <iostream>
 
 std::string display_text = "Proyecto Final - Javier Bravo Perucho";
 int puntos = 0;
-int nivel_text = 0;
+int nivel = 1;
 int viento = 0;
 const int LON = 10;
 const int FLECHA_X = -11;
 const int FLECHA_Y = -10;
 const int FLECHA_Z = 100;
+const PxVec3 POS_BASKET = { 0,30,-3 };
 using namespace physx;
 
 PxDefaultAllocator		gAllocator;
@@ -54,7 +56,11 @@ SistemaParticulas*		sp				= NULL;
 SistemaFuerzas*			sf				= NULL;
 ExplosionForceGenerator* efg			 = NULL;
 GeneradorSolidosRigidos* gsr            = NULL;
-Nivel* nivelActual						= NULL;
+Nivel* nivel1						= NULL;
+Nivel* nivel2						= NULL;
+Nivel* nivel3						= NULL;
+Nivel* nivel4						= NULL;
+Nivel* nivelActual					= NULL;
 
 PxTransform tFlecha;
 bool rotarDerecha = false;
@@ -95,9 +101,8 @@ void initPhysics(bool interactive)
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(sceneDesc);
 
-	nivelActual = new Nivel3(PxVec3(0, 30, 0), gPhysics, gScene, 3);
-	viento = nivelActual->getVientoValue();
-	nivel_text = nivelActual->getNivel();
+	nivel1 = new Nivel1(POS_BASKET, gPhysics, gScene, 1);
+	nivelActual = nivel1;
 
 	/*PxGeometry* sphere = new PxSphereGeometry(2);
 	PxRigidStatic * bola = gPhysics->createRigidStatic(PxTransform(PxVec3(0, 30, 0)));
@@ -177,6 +182,33 @@ void rotarFlecha(float radianes) {
 	tFlecha.p.y = oldTransform.p.y;
 }
 
+void gestionaNivel(int niv) {
+	switch (niv) {
+	case 1:
+		nivel2 = new Nivel2(POS_BASKET, gPhysics, gScene, 2);
+		viento = nivel2->getVientoValue();
+		nivelActual = nivel2;
+		delete nivel1;
+		break;
+	case 2:
+		nivel3 = new Nivel3(POS_BASKET, gPhysics, gScene, 3);
+		nivelActual = nivel3;
+		delete nivel2;
+		break;
+	case 3:
+		nivel4 = new Nivel4(POS_BASKET, gPhysics, gScene, 4);
+		nivelActual = nivel4;
+		delete nivel3;
+		break;
+	}
+
+	nivel++;
+	puntos = 0;
+	pelotas.clear();
+}
+
+
+
 void sumaPuntos() {
 	puntos++;
 
@@ -184,6 +216,11 @@ void sumaPuntos() {
 	sp->añadirEmisor(new EmisorDistribucionUniforme(pos, 2, 20, 20, 2.0f, 1.0f));
 
 	nivelActual->addObstacle((ObstacleType)(puntos-1));
+	nivelActual->setDif((Difficulty)(puntos-1));
+	nivelActual->nuevoViento();
+	viento = nivelActual->getVientoValue();
+
+	if (puntos == 5)gestionaNivel(nivel);
 }
 
 bool isInside(SolidoRigido* p) {
@@ -209,15 +246,18 @@ void stepPhysics(bool interactive, double t)
 	nivelActual->applyForces();
 
 	for (auto & p : pelotas) {
-		if (isInside(p.first) && !p.second) {
-			sumaPuntos();
-			p.second = true;
+		if (p.first != nullptr) {
+			if (isInside(p.first) && !p.second) {
+				sumaPuntos();
+				p.second = true;
+			}
 		}
 	}
-	if(!rotarDerecha)	rotarFlecha(PxPi / 90);
-	else rotarFlecha(-PxPi / 90);
+	if(!rotarDerecha)	rotarFlecha((PxPi / 90)*t*30);
+	else rotarFlecha((- PxPi / 90)*t*30);
 
 	nivelActual->updateObstacles();
+	nivelActual->updateMuelles();
 }
 
 // Function to clean data

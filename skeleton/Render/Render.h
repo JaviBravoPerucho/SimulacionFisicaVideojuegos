@@ -49,7 +49,7 @@
 
 extern std::string display_text;
 extern int puntos;
-extern int nivel_text;
+extern int nivel;
 extern int viento;
 
 namespace Snippets

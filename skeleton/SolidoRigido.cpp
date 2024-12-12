@@ -2,6 +2,7 @@
 
 SolidoRigido::SolidoRigido(PxTransform t, PxGeometry* geo, Vector3 linear_v, Vector3 ang_v, float mas, Vector4 color, PxPhysics* phys, PxScene* scene, PxVec3 inertia)
 {
+	gScene = scene;
 	PxReal staticFriction = 0.5f;
 	PxReal dynamicFriction = 0.3f;
 	PxReal restitution = 0.7f; // Bounciness
