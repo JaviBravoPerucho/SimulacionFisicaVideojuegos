@@ -2,6 +2,11 @@
 #include "Basket.h"
 #include "GeneradorFuerzasSolidos.h"
 
+enum ObstacleType {
+	DERIZQ, DERIZQ2, ARRABA, DIAGONAL
+};
+
+
 class Nivel
 {
 public:
@@ -20,7 +25,9 @@ public:
 
 	int getNivel()const { return nivel; }
 
-	virtual int getVientoValue()const = 0;
+	virtual int getVientoValue()const { return 0; };
+	virtual void addObstacle(ObstacleType tipo) = 0;
+	virtual void updateObstacles() = 0;
 
 protected:
 	Basket* basket;

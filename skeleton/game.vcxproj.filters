@@ -68,6 +68,7 @@
     <ClCompile Include="Nivel1.cpp" />
     <ClCompile Include="Nivel.cpp" />
     <ClCompile Include="Nivel2.cpp" />
+    <ClCompile Include="Nivel3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="Nivel1.h" />
     <ClInclude Include="Nivel.h" />
     <ClInclude Include="Nivel2.h" />
+    <ClInclude Include="Nivel3.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">

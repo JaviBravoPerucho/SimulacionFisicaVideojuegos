@@ -21,6 +21,7 @@
 #include "Basket.h"
 #include "Nivel1.h"
 #include "Nivel2.h"
+#include "Nivel3.h"
 
 #include <iostream>
 
@@ -94,7 +95,7 @@ void initPhysics(bool interactive)
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(sceneDesc);
 
-	nivelActual = new Nivel2(PxVec3(0, 30, 0), gPhysics, gScene, 2);
+	nivelActual = new Nivel3(PxVec3(0, 30, 0), gPhysics, gScene, 3);
 	viento = nivelActual->getVientoValue();
 	nivel_text = nivelActual->getNivel();
 
@@ -115,6 +116,7 @@ void initPhysics(bool interactive)
 
 	tFlecha = PxTransform({ FLECHA_X,  FLECHA_Y, FLECHA_Z });
 	RenderItem* flecha = new RenderItem(CreateShape(PxBoxGeometry(1, 10, 1)), &tFlecha, Vector4(1, 1, 1, 1));
+
 
 	/*PxGeometry* sphere = new PxSphereGeometry(5);
 
@@ -160,17 +162,19 @@ void rotarFlecha(float radianes) {
 		rotarDerecha = false;
 		return;
 	}
+	PxTransform oldTransform = tFlecha;
 	// Paso 1: Calcular la rotación actual en relación con el origen deseado
 
 	PxQuat rotation(radianes, PxVec3(0, 0, 1));
 
-	PxVec3 offset = PxVec3(0, +10, 0);
+	PxVec3 offset = PxVec3(0, 5, 0);
 	PxVec3 rotatedOffset = rotation.rotate(offset);
 	PxVec3 newCenter = tFlecha.p - offset + rotatedOffset;
 
 	PxTransform newTransform(newCenter, rotation * tFlecha.q);
 
 	tFlecha = newTransform;
+	tFlecha.p.y = oldTransform.p.y;
 }
 
 void sumaPuntos() {
@@ -178,6 +182,8 @@ void sumaPuntos() {
 
 	Vector3 pos = { nivelActual->getBasketPos().x - LON-2,  nivelActual->getBasketPos().y - LON, nivelActual->getBasketPos().z + LON / 2 };
 	sp->añadirEmisor(new EmisorDistribucionUniforme(pos, 2, 20, 20, 2.0f, 1.0f));
+
+	nivelActual->addObstacle((ObstacleType)(puntos-1));
 }
 
 bool isInside(SolidoRigido* p) {
@@ -210,6 +216,8 @@ void stepPhysics(bool interactive, double t)
 	}
 	if(!rotarDerecha)	rotarFlecha(PxPi / 90);
 	else rotarFlecha(-PxPi / 90);
+
+	nivelActual->updateObstacles();
 }
 
 // Function to clean data

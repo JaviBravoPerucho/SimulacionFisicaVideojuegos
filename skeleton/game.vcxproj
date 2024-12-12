@@ -267,6 +267,7 @@
     <ClCompile Include="Nivel.cpp" />
     <ClCompile Include="Nivel1.cpp" />
     <ClCompile Include="Nivel2.cpp" />
+    <ClCompile Include="Nivel3.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="Proyectil.cpp" />
     <ClCompile Include="RenderUtils.cpp" />
@@ -297,6 +298,7 @@
     <ClInclude Include="Nivel.h" />
     <ClInclude Include="Nivel1.h" />
     <ClInclude Include="Nivel2.h" />
+    <ClInclude Include="Nivel3.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="Proyectil.h" />
     <ClInclude Include="RenderUtils.hpp" />

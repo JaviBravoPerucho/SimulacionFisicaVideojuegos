@@ -13,6 +13,8 @@ public:
 
 	PxRigidDynamic* getRigidDynamic()const { return solid; }
 
+	void setVelocity(Vector3 vel) { solid->setLinearVelocity(vel); }
+
 protected:
 	PxRigidDynamic* solid;
 	PxShape* shape;
