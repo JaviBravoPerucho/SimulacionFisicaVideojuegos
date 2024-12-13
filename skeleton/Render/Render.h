@@ -48,6 +48,9 @@
 #include <string>
 
 extern std::string display_text;
+extern std::string puntos_text;
+extern std::string nivel_text;
+extern std::string viento_text;
 extern int puntos;
 extern int nivel;
 extern int viento;

@@ -10,6 +10,14 @@ enum Difficulty {
 	DIF1, DIF2, DIF3
 };
 
+const Vector3 POS_MUE1 = { 20,40,10 };
+const Vector3 POS_MUE2 = { -40,40,10 };
+const Vector3 POS_MUE3 = { -10,-30,50 };
+const Vector3 POS_MUE4 = { -10,30,50 };
+const Vector3 POS_MUE5 = { -10,40,70 };
+const INT BALL_DIM = { 5 };
+
+
 
 class Nivel
 {

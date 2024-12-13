@@ -23,12 +23,16 @@
 #include "Nivel2.h"
 #include "Nivel3.h"
 #include "Nivel4.h"
+#include "PantallaFinal.h"
 
 #include <iostream>
 
 std::string display_text = "Proyecto Final - Javier Bravo Perucho";
+std::string puntos_text = "Puntos: " + std::to_string(puntos) + "/5";
+std::string nivel_text = "Nivel: " + std::to_string(nivel) + "/4";
+std::string viento_text = "Viento: " + std::to_string(viento) + " m/s";
 int puntos = 0;
-int nivel = 1;
+int nivel = 5;
 int viento = 0;
 const int LON = 10;
 const int FLECHA_X = -11;
@@ -61,6 +65,7 @@ Nivel* nivel2						= NULL;
 Nivel* nivel3						= NULL;
 Nivel* nivel4						= NULL;
 Nivel* nivelActual					= NULL;
+Nivel* pantallaFinal = NULL;
 
 PxTransform tFlecha;
 bool rotarDerecha = false;
@@ -102,6 +107,9 @@ void initPhysics(bool interactive)
 	gScene = gPhysics->createScene(sceneDesc);
 
 	nivel1 = new Nivel1(POS_BASKET, gPhysics, gScene, 1);
+	//nivel4 = new Nivel4(POS_BASKET, gPhysics, gScene, 1);
+	pantallaFinal = new PantallaFinal(POS_BASKET, gPhysics, gScene, 5);
+
 	nivelActual = nivel1;
 
 	/*PxGeometry* sphere = new PxSphereGeometry(2);
@@ -183,6 +191,7 @@ void rotarFlecha(float radianes) {
 }
 
 void gestionaNivel(int niv) {
+	nivel++;
 	switch (niv) {
 	case 1:
 		nivel2 = new Nivel2(POS_BASKET, gPhysics, gScene, 2);
@@ -193,6 +202,7 @@ void gestionaNivel(int niv) {
 	case 2:
 		nivel3 = new Nivel3(POS_BASKET, gPhysics, gScene, 3);
 		nivelActual = nivel3;
+		viento = 0;
 		delete nivel2;
 		break;
 	case 3:
@@ -200,10 +210,17 @@ void gestionaNivel(int niv) {
 		nivelActual = nivel4;
 		delete nivel3;
 		break;
+	case 4:
+		pantallaFinal = new PantallaFinal(POS_BASKET, gPhysics, gScene, 5);
+		nivelActual = pantallaFinal;
+		delete nivel4;
 	}
 
-	nivel++;
+
 	puntos = 0;
+	for (auto& p : pelotas) {
+		p.first->~SolidoRigido();
+	}
 	pelotas.clear();
 }
 
@@ -258,6 +275,16 @@ void stepPhysics(bool interactive, double t)
 
 	nivelActual->updateObstacles();
 	nivelActual->updateMuelles();
+	if (nivel < 5) {
+		puntos_text = "Puntos: " + std::to_string(puntos) + "/5";
+		nivel_text = "Nivel: " + std::to_string(nivel) + "/4";
+		viento_text = "Viento: " + std::to_string(viento) + " m/s";
+	}
+	else {
+		puntos_text = "";
+		viento_text = "";
+		nivel_text = "";
+	}
 }
 
 // Function to clean data
