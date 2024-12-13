@@ -32,7 +32,7 @@ std::string puntos_text = "Puntos: " + std::to_string(puntos) + "/5";
 std::string nivel_text = "Nivel: " + std::to_string(nivel) + "/4";
 std::string viento_text = "Viento: " + std::to_string(viento) + " m/s";
 int puntos = 0;
-int nivel = 5;
+int nivel = 2;
 int viento = 0;
 const int LON = 10;
 const int FLECHA_X = -11;
@@ -106,11 +106,13 @@ void initPhysics(bool interactive)
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(sceneDesc);
 
-	nivel1 = new Nivel1(POS_BASKET, gPhysics, gScene, 1);
+	sp = new SistemaParticulas();
+	sf = new SistemaFuerzas(sp);
+	//nivel1 = new Nivel1(POS_BASKET, gPhysics, gScene, 1);
+	nivel2 = new Nivel2(POS_BASKET, gPhysics, gScene, 1,sp, sf);
 	//nivel4 = new Nivel4(POS_BASKET, gPhysics, gScene, 1);
-	pantallaFinal = new PantallaFinal(POS_BASKET, gPhysics, gScene, 5);
 
-	nivelActual = nivel1;
+	nivelActual = nivel2;
 
 	/*PxGeometry* sphere = new PxSphereGeometry(2);
 	PxRigidStatic * bola = gPhysics->createRigidStatic(PxTransform(PxVec3(0, 30, 0)));
@@ -162,7 +164,7 @@ void initPhysics(bool interactive)
 	//sf->generateSpringDemo();
 	//sf->generateBuoyancyDemo();
 
-	sp = new SistemaParticulas();
+
 
 }
 
@@ -194,7 +196,7 @@ void gestionaNivel(int niv) {
 	nivel++;
 	switch (niv) {
 	case 1:
-		nivel2 = new Nivel2(POS_BASKET, gPhysics, gScene, 2);
+		nivel2 = new Nivel2(POS_BASKET, gPhysics, gScene, 2, sp, sf);
 		viento = nivel2->getVientoValue();
 		nivelActual = nivel2;
 		delete nivel1;
@@ -211,7 +213,8 @@ void gestionaNivel(int niv) {
 		delete nivel3;
 		break;
 	case 4:
-		pantallaFinal = new PantallaFinal(POS_BASKET, gPhysics, gScene, 5);
+		pantallaFinal = new PantallaFinal(POS_BASKET+Vector3(1000,0,0), gPhysics, gScene, 5);
+		tFlecha.p.x += 1000;
 		nivelActual = pantallaFinal;
 		delete nivel4;
 	}
@@ -257,7 +260,8 @@ void stepPhysics(bool interactive, double t)
 	gScene->fetchResults(true);
 
 	sp->update(t);
-	//sf->update(t);
+	sf->update(t);
+	//sp->integrateParticles(t);
 
 	//gsr->integrate(t);
 	nivelActual->applyForces();

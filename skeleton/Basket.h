@@ -14,7 +14,17 @@ public:
 
 	PxVec3 getInitPos()const { return initPos; }
 
+	~Basket() {
+		for (auto& r : renderItems) {
+			r->release();
+		}
+		actors.clear();
+	}
+
 protected:
 	PxVec3 initPos;
+	std::vector<PxRigidStatic*> actors;
+	std::vector<RenderItem*> renderItems;
+
 };
 

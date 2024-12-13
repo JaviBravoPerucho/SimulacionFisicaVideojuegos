@@ -4,34 +4,34 @@
 void Basket::addBasketToScene(PxPhysics* physics, PxScene* scene)
 {
     PxMaterial* material = physics->createMaterial(0.5f, 0.5f, 0.5f);
-    PxRigidStatic* staticActor = physics->createRigidStatic(PxTransform(PxVec3(0, 0, 0)+initPos));
-    PxShape* shape = staticActor->createShape(PxBoxGeometry(0.5f, 1, 10), *material);
-    scene->addActor(*staticActor);
+    actors.push_back(physics->createRigidStatic(PxTransform(PxVec3(0, 0, 0)+initPos)));
+    PxShape* shape = actors[0]->createShape(PxBoxGeometry(0.5f, 1, 10), *material);
+    scene->addActor(*actors[0]);
 
-    RenderItem* item = new RenderItem(shape, staticActor, { 1,0,0,1 });
+    renderItems.push_back(new RenderItem(shape, actors[0], { 1,0,0,1 }));
 
-    PxRigidStatic* staticActor2 = physics->createRigidStatic(PxTransform(PxVec3(-10, 0,10)+initPos));
-    PxShape* shape2 = staticActor2->createShape(PxBoxGeometry(10, 1, 0.5f), *material);
-    scene->addActor(*staticActor2);
+    actors.push_back(physics->createRigidStatic(PxTransform(PxVec3(-10, 0,10)+initPos)));
+    PxShape* shape2 = actors[1]->createShape(PxBoxGeometry(10, 1, 0.5f), *material);
+    scene->addActor(*actors[1]);
 
-    RenderItem* item2 = new RenderItem(shape2, staticActor2, { 1,0,0,1 });
+    renderItems.push_back(new RenderItem(shape2, actors[1], { 1,0,0,1 }));
 
-    PxRigidStatic* staticActor3 = physics->createRigidStatic(PxTransform(PxVec3(-10, 0, -10)+initPos));
-    PxShape* shape3 = staticActor3->createShape(PxBoxGeometry(10, 1, 0.5f), *material);
-    scene->addActor(*staticActor3);
+    actors.push_back(physics->createRigidStatic(PxTransform(PxVec3(-10, 0, -10)+initPos)));
+    PxShape* shape3 = actors[2]->createShape(PxBoxGeometry(10, 1, 0.5f), *material);
+    scene->addActor(*actors[2]);
 
-    RenderItem* item3 = new RenderItem(shape3, staticActor3, { 1,0,0,1 });
+    renderItems.push_back(new RenderItem(shape3, actors[2], { 1,0,0,1 }));
 
-    PxRigidStatic* staticActor4 = physics->createRigidStatic(PxTransform(PxVec3(-20, 0, 0)+initPos));
-    PxShape* shape4 = staticActor4->createShape(PxBoxGeometry(0.5f, 1, 10), *material);
-    scene->addActor(*staticActor4);
+    actors.push_back(physics->createRigidStatic(PxTransform(PxVec3(-20, 0, 0)+initPos)));
+    PxShape* shape4 = actors[3]->createShape(PxBoxGeometry(0.5f, 1, 10), *material);
+    scene->addActor(*actors[3]);
 
-    RenderItem* item4 = new RenderItem(shape4, staticActor4, { 1,0,0,1 });
+    renderItems.push_back(new RenderItem(shape4, actors[3], { 1,0,0,1 }));
 
     PxMaterial* materialBoard = physics->createMaterial(0.5f, 0.5f, 0.5f);
-    PxRigidStatic* boardActor = physics->createRigidStatic(PxTransform(PxVec3(-10, 10, -20) + initPos));
-    PxShape* boardShape = boardActor->createShape(PxBoxGeometry(20, 20, 0.5f), *materialBoard);
-    scene->addActor(*boardActor);
+    actors.push_back(physics->createRigidStatic(PxTransform(PxVec3(-10, 10, -20) + initPos)));
+    PxShape* boardShape = actors[4]->createShape(PxBoxGeometry(20, 20, 0.5f), *materialBoard);
+    scene->addActor(*actors[4]);
 
-    RenderItem* itemBoard = new RenderItem(boardShape, boardActor, { 1, 1, 1, 1 });
+    renderItems.push_back(new RenderItem(boardShape, actors[4], { 1, 1, 1, 1 }));
 }

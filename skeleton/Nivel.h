@@ -46,7 +46,6 @@ public:
 
 	virtual ~Nivel() {
 		delete basket;
-		delete gfs;
 	}
 
 protected:

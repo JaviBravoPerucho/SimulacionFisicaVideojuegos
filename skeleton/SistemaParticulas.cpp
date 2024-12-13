@@ -11,6 +11,7 @@ void SistemaParticulas::update(double t)
 {
 	for (auto e: emisoresDeParticulas) {
 		e->integrate(t);
+		particulas = e->getParticles();
 		if (e->eliminar())emisoresDeParticulasAEliminar.push_back(e);
 	}
 	//if (!particulas.empty())integrateParticles(t);
@@ -32,14 +33,10 @@ void SistemaParticulas::integrateParticles(double t)
 {
 	tiempoTotal += t;
 
-	std::list<Particle*>::iterator it = particulas.begin();
-
 	for (auto e : emisoresDeParticulas) {
 		particulas = e->getParticles();
-		while (it != particulas.end()) {
-			(*it)->integrate(t);
-			it++;
-		}
+		for (auto& p : particulas)
+			p->integrate(t);
 	}
 
 }
