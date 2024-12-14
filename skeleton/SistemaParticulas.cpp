@@ -22,7 +22,7 @@ void SistemaParticulas::update(double t)
 }
 
 void SistemaParticulas::eliminarEmisor(Emisor* emisor) {
-	emisoresDeParticulas.remove(emisor);
+	emisoresDeParticulasAEliminar.push_back(emisor);
 }
 
 void SistemaParticulas::añadirEmisor(Emisor* emisor) {

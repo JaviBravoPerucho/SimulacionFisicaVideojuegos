@@ -17,6 +17,8 @@ public:
 	Vector3 setForce(Particle* p);
 	void update(float t) {};
 
+	void setViento(Vector3 nuevo) { viento = nuevo; }
+
 private:
 
 	Vector3 viento;

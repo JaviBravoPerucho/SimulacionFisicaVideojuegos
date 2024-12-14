@@ -7,7 +7,7 @@
 class Emisor
 {
 public:
-	Emisor(Vector3 pos, double t, float limite, float te) :pos(pos), tiempoDeVida(t), tiempoTotal(0), fuente(0), limiteEspacio(limite), modelo_particula(), tiempoEmitiendo(te) {};
+	Emisor(Vector3 pos, double t, float limite, float te) :stopEmitting(false), pos(pos), tiempoDeVida(t), tiempoTotal(0), fuente(0), limiteEspacio(limite), modelo_particula(), tiempoEmitiendo(te) {};
 
 	virtual void createParticle() = 0;
 
@@ -19,10 +19,13 @@ public:
 	model_t getModelo() const { return modelo_particula; }
 	bool eliminar()const { return tiempoTotal >= tiempoEmitiendo; }
 
+	void setEmitting(bool emit) { stopEmitting = emit; }
+
 protected:
 	std::list<Particle*> fuente;
 	double tiempoDeVida, tiempoTotal, limiteEspacio, tiempoEmitiendo;
 	Vector3 pos;
 	model_t modelo_particula;
+	bool stopEmitting;
 };
 

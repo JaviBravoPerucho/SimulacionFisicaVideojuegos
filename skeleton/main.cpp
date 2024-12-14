@@ -32,7 +32,7 @@ std::string puntos_text = "Puntos: " + std::to_string(puntos) + "/5";
 std::string nivel_text = "Nivel: " + std::to_string(nivel) + "/4";
 std::string viento_text = "Viento: " + std::to_string(viento) + " m/s";
 int puntos = 0;
-int nivel = 2;
+int nivel = 1;
 int viento = 0;
 const int LON = 10;
 const int FLECHA_X = -11;
@@ -108,11 +108,11 @@ void initPhysics(bool interactive)
 
 	sp = new SistemaParticulas();
 	sf = new SistemaFuerzas(sp);
-	//nivel1 = new Nivel1(POS_BASKET, gPhysics, gScene, 1);
-	nivel2 = new Nivel2(POS_BASKET, gPhysics, gScene, 1,sp, sf);
+	nivel1 = new Nivel1(POS_BASKET, gPhysics, gScene, 1);
+	//nivel2 = new Nivel2(POS_BASKET, gPhysics, gScene, 1,sp, sf);
 	//nivel4 = new Nivel4(POS_BASKET, gPhysics, gScene, 1);
 
-	nivelActual = nivel2;
+	nivelActual = nivel1;
 
 	/*PxGeometry* sphere = new PxSphereGeometry(2);
 	PxRigidStatic * bola = gPhysics->createRigidStatic(PxTransform(PxVec3(0, 30, 0)));
@@ -282,7 +282,7 @@ void stepPhysics(bool interactive, double t)
 	if (nivel < 5) {
 		puntos_text = "Puntos: " + std::to_string(puntos) + "/5";
 		nivel_text = "Nivel: " + std::to_string(nivel) + "/4";
-		viento_text = "Viento: " + std::to_string(viento) + " m/s";
+		viento_text = "Viento: " + std::to_string(viento*3) + " m/s";
 	}
 	else {
 		puntos_text = "";

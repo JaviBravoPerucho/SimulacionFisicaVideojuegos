@@ -14,11 +14,11 @@ public:
 		gfs = new GeneradorFuerzasSolidos(nullptr, fuerza, { 0,0,0 }, { 1000,1000,1000 });
 		std::random_device rd; // obtain a random number from hardware
 		std::mt19937 gen(rd()); // seed the generator
-		std::uniform_int_distribution<> distr(-3, 3); // define the range
+		std::uniform_int_distribution<> distr(-2, 2); // define the range
 		vientoValue = distr(gen);
-		PxVec3 fuerzaViento = PxVec3(vientoValue, 1, 0);
+		PxVec3 fuerzaViento = PxVec3(vientoValue, 0, 0);
 		viento = new GeneradorFuerzasSolidos(nullptr, fuerzaViento, { 0,0,0 }, { 1000,1000,1000 });
-		vientoParticulas = new VientoForceGenerator(posBasket, Vector3(0), fuerzaViento);
+		vientoParticulas = new VientoForceGenerator(posBasket, Vector3(10000), fuerzaViento*10);
 		edn = new EmisorDistribucionNormal(posBasket, 5, 100, 10000, 0.15, 10000);
 		sis = sp;
 		sis->añadirEmisor(edn);
@@ -40,12 +40,14 @@ public:
 	void nuevoViento() {
 		std::random_device rd; // obtain a random number from hardware
 		std::mt19937 gen(rd()); // seed the generator
-		std::uniform_int_distribution<> distr(-3, 3); // define the range
+		std::uniform_int_distribution<> distr(-2, 2); // define the range
 		vientoValue = distr(gen);
-		PxVec3 fuerzaViento = PxVec3(vientoValue, 1, 0);
+		PxVec3 fuerzaViento = PxVec3(vientoValue, 0, 0);
 		viento->setForce(fuerzaViento);
+		vientoParticulas->setViento(fuerzaViento * 10);
 	};
 	~Nivel2() {
+		edn->setEmitting(true);
 		sis->eliminarEmisor(edn);
 		delete viento;
 	}
