@@ -265,23 +265,18 @@
     <ClCompile Include="GravitationalForce.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Nivel.cpp" />
-    <ClCompile Include="Nivel1.cpp" />
-    <ClCompile Include="Nivel2.cpp" />
     <ClCompile Include="Nivel3.cpp" />
     <ClCompile Include="Nivel4.cpp" />
     <ClCompile Include="PantallaFinal.cpp" />
     <ClCompile Include="Particle.cpp" />
-    <ClCompile Include="Proyectil.cpp" />
     <ClCompile Include="RenderUtils.cpp" />
     <ClCompile Include="Render\Camera.cpp" />
     <ClCompile Include="Render\Render.cpp" />
     <ClCompile Include="SistemaFuerzas.cpp" />
     <ClCompile Include="SistemaParticulas.cpp" />
-    <ClCompile Include="SistemaSolidosRigidos.cpp" />
     <ClCompile Include="SolidoRigido.cpp" />
     <ClCompile Include="SpringForceGenerator.cpp" />
     <ClCompile Include="SpringForceSolids.cpp" />
-    <ClCompile Include="TorbellinoForceGenerator.cpp" />
     <ClCompile Include="Basket.cpp" />
     <ClCompile Include="VientoForceGenerator.cpp" />
   </ItemGroup>
@@ -297,6 +292,7 @@
     <ClInclude Include="ForceGenerator.h" />
     <ClInclude Include="GeneradorFuerzasSolidos.h" />
     <ClInclude Include="GeneradorSolidosRigidos.h" />
+    <ClInclude Include="ggPos.h" />
     <ClInclude Include="GravitationalForce.h" />
     <ClInclude Include="Nivel.h" />
     <ClInclude Include="Nivel1.h" />

@@ -2,9 +2,6 @@
 
 SistemaParticulas::SistemaParticulas():tiempoTotal(0)
 {
-	//emisoresDeParticulas.push_back(new EmisorDistribucionNormal(Vector3(0), 5, 2, 100, 2.0f));
-	//emisoresDeParticulas.push_back(new EmisorDistribucionNormal(Vector3(0), 5, 5.0, 200.0f));
-
 }
 
 void SistemaParticulas::update(double t)
@@ -14,7 +11,6 @@ void SistemaParticulas::update(double t)
 		particulas = e->getParticles();
 		if (e->eliminar())emisoresDeParticulasAEliminar.push_back(e);
 	}
-	//if (!particulas.empty())integrateParticles(t);
 
 	for (auto e : emisoresDeParticulasAEliminar) {
 		if(e->getParticles().empty())emisoresDeParticulas.remove(e);//Solo se elimina cuando no quedan partículas para poder aplicarles las fuerzas

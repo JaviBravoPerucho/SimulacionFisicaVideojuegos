@@ -6,7 +6,6 @@ class EmisorDistribucionNormal : public Emisor
 public:
 	EmisorDistribucionNormal(Vector3 pos, double t, double dt, float limite,float masa, float te) : Emisor(pos, t, limite,te), desviacion(dt)
 	{
-		//Vector3 vel = Vector3(distribucionNormal(4, desviacion), distribucionNormal(4, desviacion), distribucionNormal(4, desviacion));
 		Vector3 posaux = Vector3(distribucionNormal(0, desviacion), distribucionNormal(0, desviacion), distribucionNormal(0, desviacion));
 		Vector3 ac = Vector3(0, 0, 0);
 		float tiempo = tiempoDeVida + tiempoTotal;

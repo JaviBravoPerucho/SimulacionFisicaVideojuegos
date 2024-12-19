@@ -13,7 +13,6 @@ void EmisorDistribucionNormal::createParticle()
 {
 	Particle* p = new Particle(modelo_particula);
 	modelo_particula.pos = Vector3(distribucionNormal(1, desviacion), distribucionNormal(1, desviacion), distribucionNormal(1, desviacion));
-	//p->setVel(Vector3(distribucionNormal(0, desviacion), distribucionNormal(20, desviacion), distribucionNormal(0, desviacion)));
 	p->setTiempo(tiempoDeVida + tiempoTotal);
 	fuente.push_back(p);
 }

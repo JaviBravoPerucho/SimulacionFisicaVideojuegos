@@ -10,9 +10,6 @@
     <ClCompile Include="RenderUtils.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="callbacks.cpp" />
-    <ClCompile Include="Proyectil.cpp">
-      <Filter>Practica1</Filter>
-    </ClCompile>
     <ClCompile Include="Particle.cpp">
       <Filter>Practica1</Filter>
     </ClCompile>
@@ -29,9 +26,6 @@
       <Filter>Practica2</Filter>
     </ClCompile>
     <ClCompile Include="VientoForceGenerator.cpp">
-      <Filter>Practica3</Filter>
-    </ClCompile>
-    <ClCompile Include="TorbellinoForceGenerator.cpp">
       <Filter>Practica3</Filter>
     </ClCompile>
     <ClCompile Include="SistemaFuerzas.cpp">
@@ -55,20 +49,11 @@
     <ClCompile Include="SolidoRigido.cpp">
       <Filter>Practica5</Filter>
     </ClCompile>
-    <ClCompile Include="SistemaSolidosRigidos.cpp">
-      <Filter>Practica5</Filter>
-    </ClCompile>
     <ClCompile Include="GeneradorSolidosRigidos.cpp">
       <Filter>Practica5</Filter>
     </ClCompile>
     <ClCompile Include="GeneradorFuerzasSolidos.cpp">
       <Filter>Practica5</Filter>
-    </ClCompile>
-    <ClCompile Include="Nivel1.cpp">
-      <Filter>ProyectoFinal</Filter>
-    </ClCompile>
-    <ClCompile Include="Nivel2.cpp">
-      <Filter>ProyectoFinal</Filter>
     </ClCompile>
     <ClCompile Include="Nivel3.cpp">
       <Filter>ProyectoFinal</Filter>
@@ -82,7 +67,12 @@
     <ClCompile Include="Basket.cpp">
       <Filter>ProyectoFinal</Filter>
     </ClCompile>
-    <ClCompile Include="SpringForceSolids.cpp" />
+    <ClCompile Include="SpringForceSolids.cpp">
+      <Filter>ProyectoFinal</Filter>
+    </ClCompile>
+    <ClCompile Include="PantallaFinal.cpp">
+      <Filter>ProyectoFinal</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -172,7 +162,15 @@
     <ClInclude Include="Basket.h">
       <Filter>ProyectoFinal</Filter>
     </ClInclude>
-    <ClInclude Include="SpringForceSolids.h" />
+    <ClInclude Include="SpringForceSolids.h">
+      <Filter>ProyectoFinal</Filter>
+    </ClInclude>
+    <ClInclude Include="PantallaFinal.h">
+      <Filter>ProyectoFinal</Filter>
+    </ClInclude>
+    <ClInclude Include="ggPos.h">
+      <Filter>ProyectoFinal</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">

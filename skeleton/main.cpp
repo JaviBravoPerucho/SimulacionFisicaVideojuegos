@@ -99,7 +99,6 @@ void initPhysics(bool interactive)
 
 	// For Solid Rigids +++++++++++++++++++++++++++++++++++++
 	PxSceneDesc sceneDesc(gPhysics->getTolerancesScale());
-	//sceneDesc.gravity = PxVec3(0.0f, -9.8f, 0.0f);
 	gDispatcher = PxDefaultCpuDispatcherCreate(2);
 	sceneDesc.cpuDispatcher = gDispatcher;
 	sceneDesc.filterShader = contactReportFilterShader;
@@ -109,63 +108,11 @@ void initPhysics(bool interactive)
 	sp = new SistemaParticulas();
 	sf = new SistemaFuerzas(sp);
 	nivel1 = new Nivel1(POS_BASKET, gPhysics, gScene, 1);
-	//nivel2 = new Nivel2(POS_BASKET, gPhysics, gScene, 1,sp, sf);
-	//nivel4 = new Nivel4(POS_BASKET, gPhysics, gScene, 1);
 
 	nivelActual = nivel1;
 
-	/*PxGeometry* sphere = new PxSphereGeometry(2);
-	PxRigidStatic * bola = gPhysics->createRigidStatic(PxTransform(PxVec3(0, 30, 0)));
-	PxShape* shape = CreateShape(*sphere);
-	bola->attachShape(*shape);
-	gScene->addActor(*bola);
-	RenderItem* item;
-	item = new RenderItem(shape, bola, { 0.8,0.8,0.8,1 });*/
-	/*PxRigidStatic* suelo = gPhysics->createRigidStatic(PxTransform({ 0,0,0 }));
-	PxShape* shape = CreateShape(PxBoxGeometry(1000, 0.1, 1000));
-	suelo->attachShape(*shape);
-	gScene->addActor(*suelo);
-
-	RenderItem* item;
-	item = new RenderItem(shape, suelo, { 0.8,0.8,0.8,1 });*/
-
 	tFlecha = PxTransform({ FLECHA_X,  FLECHA_Y, FLECHA_Z });
 	RenderItem* flecha = new RenderItem(CreateShape(PxBoxGeometry(1, 10, 1)), &tFlecha, Vector4(1, 1, 1, 1));
-
-
-	/*PxGeometry* sphere = new PxSphereGeometry(5);
-
-	gsr = new GeneradorSolidosRigidos(PxVec3(0, 50, 0), 50, sphere, { 0,0,0 }, { 0,0,0 }, 0.15, { 0.8,0.8,0.8,1 }, gPhysics, gScene);
-	
-	PxReal inertia = 25;
-	PxVec3 inertiaTensor(inertia, inertia, inertia);
-
-	PxGeometry* box = new PxBoxGeometry(5, 5, 5);
-
-	SolidoRigido* sr = 
-		new SolidoRigido(PxTransform({ -10,5,-10 }),box, { 0,5,0 }, { 0,0,0 }, 0.15, { 0.8,0.8,0.8,1 }, gPhysics,gScene, inertiaTensor);
-
-	SolidoRigido* sr2 =
-		new SolidoRigido(PxTransform({ 10,5,10 }), box, { 0,5,0 }, { 0,0,0 }, 1, { 0.8,0.8,0.8,1 }, gPhysics, gScene, inertiaTensor);
-
-	SolidoRigido* sr3 =
-		new SolidoRigido(PxTransform({ 25,5,0 }), box, { 0,5,0 }, { 0,0,0 }, 0.05, { 0.8,0.8,0.8,1 }, gPhysics, gScene, inertiaTensor);
-
-	PxVec3 fuerza = PxVec3(0, -900.8, 0);
-	gfs = new GeneradorFuerzasSolidos(gsr, fuerza, { 0,0,0 }, { 1000,1000,1000 });*/
-	//sp = new SistemaParticulas();
-	//sf = new SistemaFuerzas(sp);
-
-	//sf->addGenerator(new GravitationalForce(Vector3(0, 0, 0), Vector3(10, 10, 10)));
-	//sf->addGenerator(new VientoForceGenerator(Vector3(0, 0, 0), Vector3(10, 10, 10), Vector3(100,100,100)));
-	//sf->addGenerator(new TorbellinoForceGenerator(Vector3(0, 0, 0), Vector3(10, 10, 10)));
-	//efg = new ExplosionForceGenerator(Vector3(0, 0, 0), Vector3(10, 10, 10), 100000, 500);
-	//sf->addGenerator(efg);
-	//sf->generateSpringDemo();
-	//sf->generateBuoyancyDemo();
-
-
-
 }
 
 void rotarFlecha(float radianes) {
@@ -178,7 +125,6 @@ void rotarFlecha(float radianes) {
 		return;
 	}
 	PxTransform oldTransform = tFlecha;
-	// Paso 1: Calcular la rotación actual en relación con el origen deseado
 
 	PxQuat rotation(radianes, PxVec3(0, 0, 1));
 
@@ -261,9 +207,6 @@ void stepPhysics(bool interactive, double t)
 
 	sp->update(t);
 	sf->update(t);
-	//sp->integrateParticles(t);
-
-	//gsr->integrate(t);
 	nivelActual->applyForces();
 
 	for (auto & p : pelotas) {
@@ -316,8 +259,6 @@ void keyPress(unsigned char key, const PxTransform& camera)
 
 	switch(toupper(key))
 	{
-	//case 'B': break;
-	//case ' ':	break;
 	case ' ':
 	{
 		shoot(camera);

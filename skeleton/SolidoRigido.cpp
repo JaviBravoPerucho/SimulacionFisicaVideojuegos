@@ -13,15 +13,10 @@ SolidoRigido::SolidoRigido(PxTransform t, PxGeometry* geo, Vector3 linear_v, Vec
 	solid->setAngularVelocity(ang_v);
 	shape = CreateShape(*geo, material);
 	solid->attachShape(*shape);
-	//PxReal radius = 1.0f;
 	PxReal mass = mas;
-
-	//PxReal inertia = (2.0f / 5.0f) * mass * radius * radius;
-	//PxVec3 inertiaTensor(inertia, inertia, inertia);
 
 	solid->setMass(mass);
 	solid->setMassSpaceInertiaTensor(inertia);
-	//PxRigidBodyExt::updateMassAndInertia(*solid, density);
 	scene->addActor(*solid);
 
 	renderItem = new RenderItem(shape, solid, color);
