@@ -1,8 +1,9 @@
-# SimulacionFisicaVideojuegos
-Repositorio de las prácticas de la asignatura de Simulación Física de Videojuegos
+# Kobe!
 
-En la carpeta skeleton estará vuestro código fuente
+El juego consiste en utilizar tus reflejos y puntería para encestar la bola igualito que Kobe Bryant. Consta de 4 niveles, y para pasar cada nivel tendrás que realizar 5 encestos. A medida que avances se irá haciendo cada vez más complicado, añadiendo obstáculos y modificaciones al entorno.
 
-Necesitaréis además descomprimir el archivo que se indica a continuación en la raíz del repositorio:
+## Instrucciones:
 
-Carpetas bin y common https://ucomplutense-my.sharepoint.com/:f:/g/personal/liagar05_ucm_es/ElNxHPmZVj9Ni9-8FKTKp7cBJHAarnL3vvEvG50z0QMrzg
+Habrá una flecha abajo en el centro de la pantalla, rotando de un lado a otro. 
+Pulsa el espacio para disparar la bola, que saldrá apuntando hacia donde apunte la flecha.
+Puedes disparar tantas bolas como quieras.

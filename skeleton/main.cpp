@@ -107,6 +107,7 @@ void initPhysics(bool interactive)
 
 	sp = new SistemaParticulas();
 	sf = new SistemaFuerzas(sp);
+
 	nivel1 = new Nivel1(POS_BASKET, gPhysics, gScene, 1);
 
 	nivelActual = nivel1;
